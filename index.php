@@ -1,4 +1,6 @@
-    
+    <!-- ** Adding conexio.php as a global way ** -->
+    <?php require_once "includes/conexion.php";?>
+
     <!-- Adding Header -->
     <?php require_once "includes/header.php";?>
 
