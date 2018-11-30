@@ -6,7 +6,8 @@
     <footer>
         <div class="row">
             <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2030</p>
+                <!-- Adding date throught php code -->
+                <p>Copyright &copy; Your Website <?php echo date("Y");?></p>
             </div>
         </div>
     </footer>
