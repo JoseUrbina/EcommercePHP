@@ -48,7 +48,7 @@
                         <a href="tienda.php">Tienda</a>
                     </li>
                     <li>
-                        <a href="#">Login</a>
+                        <a href="login.php">Login</a>
                     </li>
                     <li>
                         <a href="admin">Admin</a>
@@ -57,7 +57,7 @@
                         <a href="checkout.html">Checkout</a>
                     </li>
                     <li>
-                        <a href="contact.html">Contacto</a>
+                        <a href="contacto.php">Contacto</a>
                     </li>
 
                 </ul>
