@@ -3,6 +3,43 @@
 <!-- Adding file header.php -->
 <?php require_once "includes/header.php";?>
 
+<?php
+    if(isset($_POST['submit']))
+    {
+        if(empty($_POST['nombre']) && empty($_POST['email']) 
+            && empty($_POST['titulo']) && empty($_POST['mensaje']))
+        {
+            echo "<h2 class='text-center text-danger'>Los campos estan vacíos.</h2>";
+        }
+        else if(empty($_POST['nombre']) || empty($_POST['email']) 
+            || empty($_POST['titulo']) || empty($_POST['mensaje'])){
+            echo "<h2 class='text-center text-danger'>Los campos estan vacíos.</h2>";
+        }
+        else
+        {
+            $to = "joseantonioug.99@gmail.com";
+            $asunto = wordwrap($_POST['titulo'], 70);
+            $cuerpo = $_POST['mensaje'];
+
+            // Para el envío en formato html
+            $cabecera = "MIME-Version: 1.0\r\n";
+            $cabecera .= "Content-type: text-html;charset=iso-8859-1\r\n";
+            $cabecera .= " From: " . $_POST['email'];
+
+            // send email
+            
+            if(mail($to, $asunto, $cuerpo, $cabecera))
+            {
+                echo "<h2 class='text-danger text-center'>Se ha enviado el comentario satifactoriamente</h2>";
+            }
+            else
+            {
+                echo "<h2 class='text-danger text-center'>No se envio el correo</h2>";
+            }
+        }
+    }
+?>
+
          <!-- Contact Section -->
 
         <div class="container">
