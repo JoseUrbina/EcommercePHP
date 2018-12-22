@@ -3,12 +3,27 @@
 <!-- Adding file header.php -->
 <?php require_once "includes/header.php";?>
 
+<!-- Test variable for seeing the amount of a product
+     But this space will be used for checking if we are adding products
+-->
+<?php echo $_SESSION['producto_1'];?>
+
     <!-- Page Content -->
 <div class="container">
 
 <!-- /.row --> 
 
 <div class="row">
+
+  <?php
+      if(isset($_GET['cantidad']) && isset($_GET['producto_titulo']))
+      {
+          $cantidad = $_GET['cantidad'];
+          $producto_titulo = $_GET['producto_titulo'];
+
+          echo "<h1 class='text-danger text-center bg-danger'>Tenemos {$cantidad} productos disponibles del ({$producto_titulo})</h1>";
+      }
+  ?>
 
       <h1>Checkout</h1>
 
