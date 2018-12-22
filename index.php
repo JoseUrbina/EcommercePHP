@@ -59,8 +59,9 @@
                                     </a>
                                 </h4>
                                 <p>See more snippets like this online store item at <a target="_blank" href="#">Bootsnipp - http://bootsnipp.com</a>.</p>
+                                <!-- agregar : contain the idProduct -->
                                 <a class="btn btn-primary" target="_blank" 
-                                href="item.php?id_producto=<?php echo $id_producto;?>">Agregar al Carro</a>
+                                href="carro.php?agregar=<?php echo $id_producto;?>">Agregar al Carro</a>
                             </div>                            
                         </div>
                     </div>

@@ -7,7 +7,7 @@
      which have added to checkout.php
 -->
 
-<?php session_destroy();?>
+<?php //session_destroy();?>
 
 <!DOCTYPE html>
 <html lang="en">
