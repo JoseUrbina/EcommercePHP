@@ -1,3 +1,14 @@
+<!-- Start session and storing in buffer-->
+<?php ob_start();?>
+<?php session_start();?>
+
+<!-- It must be commented because we added products to checkout.php,
+     we discommented for wiping out the SESSION and then clear the products
+     which have added to checkout.php
+-->
+
+<?php session_destroy();?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Start Bootstrap</a>
+                <a class="navbar-brand" href="index.php">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,7 +65,7 @@
                         <a href="admin">Admin</a>
                     </li>
                      <li>
-                        <a href="checkout.html">Checkout</a>
+                        <a href="checkout.php">Checkout</a>
                     </li>
                     <li>
                         <a href="contacto.php">Contacto</a>
