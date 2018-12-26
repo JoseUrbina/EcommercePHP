@@ -44,7 +44,8 @@
                 <td>$23</td>
                 <td>3</td>
                 <td>2</td>
-              
+                <td><a href="carro.php?remover=1">Remover</a></td>
+                <td><a href="carro.php?eliminar=1">Eliminar</a></td>
             </tr>
         </tbody>
     </table>

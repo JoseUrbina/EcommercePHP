@@ -54,4 +54,31 @@
 		}
 	}
 
+	// Conditional : Remove amount of product -1
+	// $_GET['remover'] : Contain the id_product
+	if(isset($_GET["remover"]))
+	{
+		$_SESSION["producto_" . $_GET['remover']]--;
+
+		// If product is less than 1 or not it the same
+		// redirect to checkout.php
+		if($_SESSION["producto_" . $_GET['remover']] < 1)
+		{
+			header('Location: checkout.php');
+		}
+		else
+		{
+			header('Location: checkout.php');
+		}
+	}
+
+	// Delete complete a product from checkout.php : assign 0
+	// $_GET['eliminar'] : Contain the id_product
+	if(isset($_GET['eliminar']))
+	{
+		$_SESSION["producto_" . $_GET['eliminar']] = "0";
+
+		header('Location: checkout.php');
+	}
+
 ?>
