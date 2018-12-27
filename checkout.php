@@ -44,8 +44,11 @@
               {
                   $conectar = Conectar::conexion();
 
+                  // Variable which the price total of the shopping
+                  $total = 0;
+
                   // A way to foreach all stored SESSIONS
-                  foreach($_SESSION as $name => valor){
+                  foreach($_SESSION as $name => $valor){
                       // Validacion para listar solo productos con una cantidad > 0
                       if($valor > 0)
                       {
@@ -63,6 +66,7 @@
                             $sql = "SELECT * FROM productos WHERE id_producto = :id_producto";
 
                             $resultado = $conectar->prepare($sql);
+                            $resultado->bindValue(":id_producto", $id_producto);
 
                             if($resultado->execute())
                             {
@@ -72,7 +76,34 @@
                                     $producto_precio = $reg["producto_precio"]; 
                                     $producto_cantidad = $reg["producto_cantidad"];
                                     $producto_imagen = $reg["producto_imagen"]; 
+                              
+                                    // Calculo del subtotal
+                                    $sub_total = $producto_precio * $valor;
+                                
+          ?>
+            <tr>
+                <td><?php echo $producto_titulo;?></td>
+                <td><?php echo "$ {$producto_precio}";?></td>
+                <td><?php echo $valor;?></td>
+                <td><?php echo $sub_total;?></td>
+                <td>
+                    <a class="btn btn-warning" href="carro.php?remover=<?php echo $id_producto;?>">
+                    <span class="glyphicon glyphicon-minus"></span></a>
+
+                    <a class="btn btn-success" href="carro.php?agregar=<?php echo $id_producto;?>">
+                    <span class="glyphicon glyphicon-plus"></span></a>
+
+                    <a class="btn btn-danger" href="carro.php?eliminar=<?php echo $id_producto;?>">
+                    <span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+
+          <?php
                                 } // Cierre while
+
+                                // Store the total of the shopping
+                                $_SESSION['item_total'] = $total += $sub_total;
+
                             } // Cierre IF Conditional
                             else
                             {
@@ -88,27 +119,7 @@
               }
               finally{
                 $conectar = null;
-              }
-          ?>
-            <tr>
-                <td>apple</td>
-                <td>$23</td>
-                <td>3</td>
-                <td>2</td>
-                <td>
-                    <a class="btn btn-warning" href="carro.php?remover=<?php echo $id_producto;?>">
-                    <span class="glyphicon glyphicon-minus"></span></a>
-
-                    <a class="btn btn-success" href="carro.php?agregar=<?php echo $id_producto;?>">
-                    <span class="glyphicon glyphicon-plus"></span></a>
-
-                    <a class="btn btn-danger" href="carro.php?eliminar=<?php echo $id_producto;?>">
-                    <span class="glyphicon glyphicon-remove"></span></a>
-                </td>
-            </tr>
-
-          <?php
-                    
+              }     
           ?>
         </tbody>
     </table>
@@ -134,7 +145,7 @@
 
 <tr class="order-total">
 <th>Order Total</th>
-<td><strong><span class="amount">$3444</span></strong> </td>
+<td><strong><span class="amount">&#36;<?php echo $_SESSION['item_total'];?></span></strong> </td>
 </tr>
 
 
