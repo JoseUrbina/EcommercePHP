@@ -64,6 +64,13 @@
 		// redirect to checkout.php
 		if($_SESSION["producto_" . $_GET['remover']] < 1)
 		{
+			/*El unset es para que ponga en 0 en el orden total y en la cantidad de items total
+		 	  si se eliminan todos los productos a comprar en el checkout.php
+			*/
+		
+			unset($_SESSION['item_total']);
+			unset($_SESSION['item_cantidad']);
+
 			header('Location: checkout.php');
 		}
 		else
@@ -76,6 +83,13 @@
 	// $_GET['eliminar'] : Contain the id_product
 	if(isset($_GET['eliminar']))
 	{
+		/*El unset es para que ponga en 0 en el orden total y en la cantidad de items total
+		  si se eliminan todos los productos a comprar en el checkout.php
+		*/
+
+		unset($_SESSION['item_total']);
+		unset($_SESSION['item_cantidad']);
+
 		$_SESSION["producto_" . $_GET['eliminar']] = "0";
 
 		header('Location: checkout.php');

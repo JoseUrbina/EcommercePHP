@@ -47,6 +47,8 @@
                   // Variable which the price total of the shopping
                   $total = 0;
 
+                  $item_cantidad = 0;
+
                   // A way to foreach all stored SESSIONS
                   foreach($_SESSION as $name => $valor){
                       // Validacion para listar solo productos con una cantidad > 0
@@ -80,12 +82,14 @@
                                     // Calculo del subtotal
                                     $sub_total = $producto_precio * $valor;
                                 
+                                    /*cantidad de items*/
+                                    $item_cantidad += $valor;
           ?>
             <tr>
                 <td><?php echo $producto_titulo;?></td>
-                <td><?php echo "$ {$producto_precio}";?></td>
+                <td>&#36;<?php echo "{$producto_precio}";?></td>
                 <td><?php echo $valor;?></td>
-                <td><?php echo $sub_total;?></td>
+                <td>&#36;<?php echo $sub_total;?></td>
                 <td>
                     <a class="btn btn-warning" href="carro.php?remover=<?php echo $id_producto;?>">
                     <span class="glyphicon glyphicon-minus"></span></a>
@@ -103,6 +107,9 @@
 
                                 // Store the total of the shopping
                                 $_SESSION['item_total'] = $total += $sub_total;
+
+                                // Calculo del numero de items
+                                $_SESSION['item_cantidad'] = $item_cantidad;
 
                             } // Cierre IF Conditional
                             else
@@ -136,7 +143,12 @@
 
 <tr class="cart-subtotal">
 <th>Items:</th>
-<td><span class="amount">4</span></td>
+<td>
+    <span class="amount">
+      <?php echo isset($_SESSION['item_cantidad'])?$_SESSION['item_cantidad']:
+                      $_SESSION['item_cantidad']="0";?>
+    </span>
+</td>
 </tr>
 <tr class="shipping">
 <th>Shipping and Handling</th>
@@ -145,7 +157,13 @@
 
 <tr class="order-total">
 <th>Order Total</th>
-<td><strong><span class="amount">&#36;<?php echo $_SESSION['item_total'];?></span></strong> </td>
+<td>
+  <strong>
+    <span class="amount">
+        &#36;<?php echo isset($_SESSION['item_total'])?$_SESSION['item_total']:
+                        $_SESSION['item_total']="0";?></span>
+  </strong>
+</td>
 </tr>
 
 
