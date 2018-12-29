@@ -27,7 +27,14 @@
 
       <h1>Checkout</h1>
 
-<form action="">
+<!-- Use URL www.sandbox.paypal.com -->
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_cart">
+    <!-- Use your Business Account -->
+    <input type="hidden" name="business" value="msn.guti5395@outlook.com">
+    <!-- CUrrency to use for buying products -->
+    <input type="hidden" name="currency_code" value="USD">
+ 
     <table class="table table-striped">
         <thead>
           <tr>
@@ -48,6 +55,12 @@
                   $total = 0;
 
                   $item_cantidad = 0;
+
+                  // Variable to use as counter for sending products to paypal
+                  $item_name = 1;
+                  $item_number = 1;
+                  $amount = 1;
+                  $quantity = 1;
 
                   // A way to foreach all stored SESSIONS
                   foreach($_SESSION as $name => $valor){
@@ -101,8 +114,29 @@
                     <span class="glyphicon glyphicon-remove"></span></a>
                 </td>
             </tr>
+            
+            <!-- Put _ on the name , because it can be 1 o more products (Cicle) -->
 
+            <input type="hidden" name="item_name_<?php echo $item_name;?>" 
+                   value="<?php echo $producto_titulo;?>">
+            <input type="hidden" name="item_number_<?php echo $item_number;?>" 
+                   value="<?php echo $id_producto;?>">
+            <!-- Precio del producto -->
+            <input type="hidden" name="amount_<?php echo $amount;?>" 
+                   value="<?php echo $producto_precio;?>">
+            <!-- Cantidad del producto --> 
+            <input type="hidden" name="quantity_<?php echo $quantity;?>" 
+                   value="<?php echo $valor;?>">
+  
           <?php
+                              // Aumentar contadores
+                              
+                              $item_name++;
+                              $item_number++;
+                              $amount++;
+                              $quantity++;
+
+
                                 } // Cierre while
 
                                 // Store the total of the shopping
@@ -130,6 +164,9 @@
           ?>
         </tbody>
     </table>
+    <input type="image" name="upload"
+           src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+           alt="PayPal - The safer, easier way to pay online">
 </form>
 
 
