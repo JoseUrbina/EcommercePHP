@@ -182,6 +182,7 @@
 <th>Items:</th>
 <td>
     <span class="amount">
+      <!-- item_cantidad = all quantity of products -->
       <?php echo isset($_SESSION['item_cantidad'])?$_SESSION['item_cantidad']:
                       $_SESSION['item_cantidad']="0";?>
     </span>
