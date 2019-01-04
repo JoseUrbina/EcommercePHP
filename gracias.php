@@ -12,10 +12,45 @@
 		$transaction = $_GET['tx'];
 		$status = $_GET['st'];
 
+		/* INsertar el registro de pedidos*/
+
+		try
+		{
+			$conectar = Conectar::conexion();
+
+			$sql = "INSERT INTO pedidos(pedido_amount, pedido_transaction, pedido_status, pedido_currency) VALUES(:amount, :transaction, :status, :currency);";
+
+			$resultado = $conectar->prepare($sql);
+
+			$resultado->bindValue(":amount", $amount);
+			$resultado->bindValue(":transaction", $transaction);
+			$resultado->bindValue(":status", $status);
+			$resultado->bindValue(":currency", $currency);
+
+			if($resultado->execute())
+			{
+				echo "<h1 class='text-center text-success'>It has done a new pedido record</h1>";
+			}
+			else
+			{
+				echo "<h1 class='text-danger text-center'>Failed query<h1>";
+			}
+		}
+		catch(Exception $e)
+		{
+			die("Error: {$e->getMessage()}");
+		}
+		finally{
+			$conectar = null;
+		}
+
 	}else{
 		// If it doesn't exist the variable tx, return tu index.php
 		header("location:index.php");
 	}
+
+	// Destruir la session para volver checkout a 0
+	session_destroy();
 ?>
 
 <div class="container">
