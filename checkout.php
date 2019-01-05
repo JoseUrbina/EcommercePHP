@@ -164,9 +164,17 @@
           ?>
         </tbody>
     </table>
-    <input type="image" name="upload"
-           src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-           alt="PayPal - The safer, easier way to pay online">
+
+    <?php
+      // Show up Buy button only if it exists 1 o more products
+
+      if(isset($_SESSION['item_cantidad']) && $_SESSION['item_cantidad'] >= 1)
+      {
+        echo "<input type='image' name='upload'
+                     src='https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif'
+                     alt='PayPal - The safer, easier way to pay online'>";
+      }
+    ?>
 </form>
 
 

@@ -78,7 +78,9 @@
    
     <form action="">
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="ADD TO CART">
+            <!-- Button for adding a new product to checkout.php -->
+            <a href="carro.php?agregar=<?php echo $id_producto;?>" class="btn btn-primary">
+            Agregar al carro</a>
         </div>
     </form>
 
