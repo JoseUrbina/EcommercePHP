@@ -21,8 +21,41 @@
                 </div>
                 <!-- /.row -->
 
-                
+                <?php
 
+                    // GETTING URL WITHOUT localhost/
+                    $url = $_SERVER["REQUEST_URI"];
+
+                    // Condition: with and without index.php from admin page index
+                    if($url == "/EccomercePHP/admin/" || $url == "/EccomercePHP/admin/index.php")
+                    {
+                        require_once "includes/admin_contenido.php";
+                    }
+
+                    // if it exists this variable, call pedidos.php
+                    if(isset($_GET['pedidos']))
+                    {
+                        require_once "pedidos.php";
+                    }
+
+                    // if it exists this variable, call productos.php
+                    if(isset($_GET["productos"]))
+                    {
+                        require_once "productos.php";
+                    }
+
+                    // if it exists this variable, call categorias.php
+                    if(isset($_GET["categorias"]))
+                    {
+                        require_once "categorias.php";
+                    }
+
+                    // if it exists this variable, call add_producto.php
+                    if(isset($_GET["add_producto"]))
+                    {
+                        require_once "add_producto.php";
+                    }
+                ?>
             </div>
             <!-- /.container-fluid -->
 
