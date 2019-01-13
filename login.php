@@ -48,6 +48,11 @@
 
                         if($password == $password_bd)
                         {
+                            $_SESSION["id_usuario"] = $id_usuario;
+                            $_SESSION["usuario"] = $usuario_bd;
+                            $_SESSION["nombre"] = $nombre_bd;
+                            $_SESSION["correo"] = $correo_bd; 
+
                             header('location:admin/index.php');
                         }
                         else

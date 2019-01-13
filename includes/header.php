@@ -61,9 +61,19 @@
                     <li>
                         <a href="login.php">Login</a>
                     </li>
-                    <li>
-                        <a href="admin">Admin</a>
-                    </li>
+
+                    <?php
+
+                        // if it exists the SESSION, show us up the ADMIN choice
+                        if(isset($_SESSION["usuario"]))
+                        {
+                            echo "<li>
+                                    <a href='admin'>Admin</a>
+                                  </li>";
+                        }
+
+                    ?>
+
                      <li>
                         <a href="checkout.php">Checkout</a>
                     </li>

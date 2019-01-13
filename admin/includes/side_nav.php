@@ -14,14 +14,12 @@
         <li>
             <a href="index.php?add_producto"><i class="fa fa-fw fa-table"></i> Agregar Producto</a>
         </li>
-        
         <li>
             <a href="index.php?categorias"><i class="fa fa-fw fa-desktop"></i> Categorias</a>
         </li>
         <li>
-            <a href="usuarios.php?usuarios"><i class="fa fa-fw fa-wrench"></i> Usuarios</a>
+            <a href="index.php?usuarios"><i class="fa fa-fw fa-wrench"></i> Usuarios</a>
         </li>
-    
     </ul>
 </div>
 <!-- /.navbar-collapse -->
