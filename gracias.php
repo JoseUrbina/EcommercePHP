@@ -60,6 +60,8 @@
 
 	try
 	{
+		$ultimo_id_pedido = 0;
+
 		// A way to foreach all stored SESSIONS
           foreach($_SESSION as $name => $valor){
               // Validacion para listar solo productos con una cantidad > 0
@@ -78,29 +80,32 @@
 
                     /***** INSERTAR PEDIDO INICIO *****/
 
-                    $conectar = Conectar::conexion();
+                    if($ultimo_id_pedido == 0)
+                    {
+                    	$conectar = Conectar::conexion();
 
-					$sql = "INSERT INTO pedidos(pedido_amount, pedido_transaction,
+						$sql = "INSERT INTO pedidos(pedido_amount, pedido_transaction,
 												pedido_status, pedido_currency) 
-							VALUES(:amount, :transaction, :status, :currency);";
+								VALUES(:amount, :transaction, :status, :currency);";
 
-					$resultado = $conectar->prepare($sql);
+						$result_pedido = $conectar->prepare($sql);
 
-					$resultado->bindValue(":amount", $amount);
-					$resultado->bindValue(":transaction", $transaction);
-					$resultado->bindValue(":status", $status);
-					$resultado->bindValue(":currency", $currency);
+						$result_pedido->bindValue(":amount", $amount);
+						$result_pedido->bindValue(":transaction", $transaction);
+						$result_pedido->bindValue(":status", $status);
+						$result_pedido->bindValue(":currency", $currency);
 
-					if($resultado->execute())
-					{
-						/* echo "<h1 class='text-center text-success'>It has done a new pedido record</h1>"; */
+						if($result_pedido->execute())
+						{
+							/* echo "<h1 class='text-center text-success'>It has done a new pedido record</h1>"; */
 
-						$ultimo_id_pedido = $conectar->lastInsertId();
-					}
-					else
-					{
-						echo "<h1 class='text-danger text-center'>Failed query<h1>";
-					}
+							$ultimo_id_pedido = $conectar->lastInsertId();
+						}
+						else
+						{
+							echo "<h1 class='text-danger text-center'>Failed query<h1>";
+						}
+                    }
 
                     /***** INSERTAR PEDIDO FIN *****/
 
@@ -123,21 +128,54 @@
                         $insertar_reporte = "INSERT INTO reportes(id_producto, id_pedido, producto_precio, producto_titulo, producto_cantidad) 
                         	VALUES(:id_producto, :id_pedido, :p_precio, :p_titulo, :p_cantidad);";
 
-                       	$resultado = $conectar->prepare($insertar_reporte);
+                       	$result_reporte = $conectar->prepare($insertar_reporte);
 
-                       	$resultado->bindValue(":id_producto", $id_producto);
-                       	$resultado->bindValue(":id_pedido", $ultimo_id_pedido);
-                       	$resultado->bindValue(":p_precio", $producto_precio);
-                       	$resultado->bindValue(":p_titulo", $producto_titulo);
+                       	$result_reporte->bindValue(":id_producto", $id_producto);
+                       	$result_reporte->bindValue(":id_pedido", $ultimo_id_pedido);
+                       	$result_reporte->bindValue(":p_precio", $producto_precio);
+                       	$result_reporte->bindValue(":p_titulo", $producto_titulo);
                        	// Valor : cantidad a comprar de un determinado producto
-                       	$resultado->bindValue(":p_cantidad", $valor);
+                       	$result_reporte->bindValue(":p_cantidad", $valor);
 
-                       	if(!$resultado->execute())
+                       	if(!$result_reporte->execute())
                        	{
-                       		echo "<h1 class='text-danger'>Failed query</h1>";
+                       		echo "<h1 class='text-danger'>Failed query - Reporte</h1>";
                        	}
 
                         /***** INSERTAR REPORTE FIN *****/
+
+                        /* Actualizamos la cantidad de productos en la tabla productos
+						   una vez que se haga la venta
+                        */
+                       
+                       /**** INICIO ACTUALIZAR CANTIDAD EN PRODUCTOS ****/
+
+                       /*
+                       		Obtenemos el valor actual del $producto_cantidad del $id_producto
+                       		seleccionado de la tabla productos y se lo restamos al 
+                       		$producto_cantidad que se ha vendido que es el $valor
+                        */
+                       
+                       // Resta cantidad catual menos la cantidad vendida
+                       
+                       $cantidad_actual = $producto_cantidad - $valor;
+
+                       // Update field producto_cantidad from table productos
+
+                       $update_cantidad = "UPDATE productos SET producto_cantidad = :cantidad_actual
+                       		  WHERE id_producto = :id_producto";
+
+                       $result_quantity = $conectar->prepare($update_cantidad);
+
+                       $result_quantity->bindValue(":cantidad_actual", $cantidad_actual);
+                       $result_quantity->bindValue(":id_producto", $id_producto);
+
+                       if(!$result_quantity->execute())
+                       {
+                       		echo "<h1 class='text-danger'>Failed query - Cantidad Productos</h1>";
+                       }
+
+                       /**** FIN ACTUALIZAR CANTIDAD EN PRODUCTOS    ****/
 
                         } // Cierre while
 
