@@ -2,6 +2,9 @@
 <!-- Adding file admin_header.php -->
 <?php require_once "includes/admin_header.php";?>
 
+<!-- Adding file Pedidos.php -->
+<?php require_once "Modelos/Pedidos.php";?>
+
         <div id="page-wrapper">
 
             <div class="container-fluid">

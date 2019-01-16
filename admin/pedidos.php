@@ -1,8 +1,38 @@
+<?php
+  
+  try
+  {
+    $pedido = new Pedidos();
+
+    $datos = $pedido->get_pedidos();
+  }
+  catch(Exception $e)
+  {
+    die("Error: {$e->getMessage()}");
+  }
+
+?>
+
 <div class="col-md-12">
     <div class="row">
         <h1 class="page-header">
-         All Orders
+         Pedidos
         </h1>
+
+
+<?php
+    if(isset($_GET["m"]))
+    {
+      switch($_GET["m"])
+      {
+        case 1:
+?>
+      <h1 class="text-danger bg-danger">Failed query!</h1>
+<?php
+        break;
+      }
+    }
+?>
     </div>
 </div>
 
@@ -10,26 +40,29 @@
     <table class="table table-hover">
         <thead>
           <tr>
-               <th>S.N</th>
-               <th>Title</th>
-               <th>Photo</th>
-               <th>Quantity</th>
-               <th>Invoice Number</th>
-               <th>Order Date</th>
+               <th>Id</th>
+               <th>Precio</th>
+               <th>Transaccion</th>
+               <th>Moneda</th>
                <th>Status</th>
+               <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
+          <?php for($i=0;$i<count($datos);$i++){?>
             <tr>
-                <td>21</td>
-                <td>Nikon 234</td>
-
-                <td><img src="http://placehold.it/62x62" alt=""></td>
-                <td>Cameras</td>
-                <td>456464</td>
-                <td>Jun 2039</td>
-               <td>Completed</td>
+                <td><?php echo $datos[$i]["id_pedido"];?></td>
+                <td><?php echo $datos[$i]["pedido_amount"];?></td>
+                <td><?php echo $datos[$i]["pedido_transaction"];?></td>
+                <td><?php echo $datos[$i]["pedido_currency"];?></td>
+                <td><?php echo $datos[$i]["pedido_status"];?></td>
+                <td>
+                  <a onclick="javascript:return confirm('¿Estas seguro que lo quieres eliminar?');" class="btn btn-danger" 
+                  href="index.php?pedidos&eliminar=<?php echo $datos[$i]["id_pedido"]?>">
+                  <i class="fa fa-trash"></i> Eliminar</a>
+                </td>
             </tr>
+          <?php }?>
         </tbody>
     </table>
 </div>
