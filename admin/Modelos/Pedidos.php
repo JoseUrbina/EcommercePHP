@@ -46,5 +46,59 @@
 				die("Error: {$e->getMessage()}");
 			}
 		}
+
+		// function that allows us to delete a determinated pedido by id_pedido
+		public function eliminar_pedido($id_pedido)
+		{
+			try
+			{	
+				// First: Verificy if it exist this pedido by id_pedido
+				$sql = "SELECT * FROM pedidos WHERE id_pedido = :id_pedido";
+
+				$result = $this->db->prepare($sql);
+				$result->bindValue(":id_pedido", $id_pedido);
+
+				// in case: failed query
+				if(!$result->execute())
+				{
+					header("Location:index.php?pedidos&m=1");
+				}
+				else
+				{	
+					// if it exist this pedido, do the next
+					if($result->rowCount() > 0)
+					{
+						$sql_delete = "DELETE FROM pedidos WHERE id_pedido = :id_pedido";
+
+						$result_delete = $this->db->prepare($sql_delete);
+						$result_delete->bindValue(":id_pedido", $id_pedido);
+
+						// in case: failed query
+						if(!$result_delete->execute())
+						{
+							header("Location:index.php?pedidos&m=1");
+						}
+						else
+						{	
+							// Deleting successfully
+							if($result_delete->rowCount() > 0)
+							{
+								/*Delete pedido correctly*/
+								header("Location:index.php?pedidos&m=2");
+							}
+						}
+					}else
+					{
+						/* Does not exist the id_pedido*/
+						header("Location:index.php?pedidos&m=3");
+					}
+				}
+
+			}
+			catch(Exception $e)
+			{
+				die("Error: {$e->getMessage()}");
+			}
+		}
 	}
 ?>

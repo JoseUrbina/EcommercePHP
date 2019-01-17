@@ -5,6 +5,15 @@
     $pedido = new Pedidos();
 
     $datos = $pedido->get_pedidos();
+
+    // Verify if it exists this variable : Delete a pedido
+    if(isset($_GET["eliminar"]))
+    {
+        $id_pedido = $_GET["eliminar"];
+
+        // Call eliminar_pedido() : it return an answer
+        $pedido->eliminar_pedido($id_pedido);
+    }
   }
   catch(Exception $e)
   {
@@ -19,15 +28,28 @@
          Pedidos
         </h1>
 
-
 <?php
+    // Validate if it exists this variable m
     if(isset($_GET["m"]))
     {
+      // switch : take different option through the value
       switch($_GET["m"])
       {
         case 1:
 ?>
       <h1 class="text-danger bg-danger">Failed query!</h1>
+<?php
+        break;
+
+        case 2:
+?>
+      <h1 class="text-success bg-success">Se elimino el pedido!</h1>
+<?php
+        break;
+
+        case 3:
+?>
+      <h1 class="text-danger bg-danger">No existe el id del pedido seleccionado!</h1>
 <?php
         break;
       }
