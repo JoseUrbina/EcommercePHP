@@ -5,6 +5,9 @@
 <!-- Adding file Pedidos.php -->
 <?php require_once "Modelos/Pedidos.php";?>
 
+<!-- Adding file Productos.php -->
+<?php require_once "Modelos/Productos.php";?>
+
         <div id="page-wrapper">
 
             <div class="container-fluid">

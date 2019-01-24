@@ -74,7 +74,7 @@
           <?php for($i=0;$i<count($datos);$i++){?>
             <tr>
                 <td><?php echo $datos[$i]["id_pedido"];?></td>
-                <td><?php echo $datos[$i]["pedido_amount"];?></td>
+                <td>&#36;<?php echo $datos[$i]["pedido_amount"];?></td>
                 <td><?php echo $datos[$i]["pedido_transaction"];?></td>
                 <td><?php echo $datos[$i]["pedido_currency"];?></td>
                 <td><?php echo $datos[$i]["pedido_status"];?></td>
