@@ -46,6 +46,82 @@
 			}
 		}
 
+		// Function that allows us to insert a new product
+		public function insertar_producto()
+		{
+			// print_r($_POST); exit();
+
+			// Validate if the fields are empty
+			 
+			if(empty($_POST["producto_titulo"]) or
+			   empty($_POST["producto_id_categoria"]) or 
+			   empty($_POST["producto_precio"]) or 
+			   empty($_POST["producto_cantidad"]) or 
+			   empty($_POST["producto_descripcion"]) or 
+			   empty($_POST["descripcion_corta"]) or
+			   empty($_FILES["producto_imagen"]))
+			{
+				header("Location:index.php?add_producto&m=1"); exit();
+			}
+
+			/*
+			   Se declaran variables para almacenar los valores que se envian desde el formulario
+			*/
+		
+			$producto_titulo = htmlentities(addslashes($_POST["producto_titulo"]));
+			$producto_id_categoria = $_POST["producto_id_categoria"];
+			$producto_precio = $_POST["producto_precio"];
+			$producto_cantidad = $_POST["producto_cantidad"];
+			$producto_descrip = htmlentities(addslashes($_POST["producto_descripcion"]));
+			$descripcion_corta = htmlentities(addslashes($_POST["descripcion_corta"]));
+
+			$producto_imagen = $_FILES["producto_imagen"]["name"];
+			$producto_imagen_tmp = $_FILES["producto_imagen"]["tmp_name"];
+
+			move_uploaded_file($producto_imagen_tmp, "../uploads/$producto_imagen");
+
+			try
+			{
+				$sql = "INSERT INTO productos 
+						VALUES(null, :producto_titulo, :producto_id_categoria, 
+							   :producto_precio, :producto_cantidad, 
+							   :producto_descripcion, :descripcion_corta, 
+							   :producto_imagen)";
+
+				$resultado = $this->db->prepare($sql);
+
+				$resultado->bindValue(":producto_titulo", $producto_titulo);
+				$resultado->bindValue(":producto_id_categoria", $producto_id_categoria);
+				$resultado->bindValue(":producto_precio",$producto_precio);
+				$resultado->bindValue(":producto_cantidad", $producto_cantidad);
+				$resultado->bindValue(":producto_descripcion", $producto_descrip);
+				$resultado->bindValue(":descripcion_corta", $descripcion_corta);
+				$resultado->bindValue(":producto_imagen", $producto_imagen);
+
+				if(!$resultado->execute())
+				{
+					header("Location:index.php?add_producto&m=2");
+				}
+				else
+				{
+					// Insert record successfully
+					if($resultado->rowCount() > 0)
+					{
+						header("Location:index.php?add_producto&m=3");
+					}
+					else
+					{
+						// It does not insert the record
+						header("Location:index.php?add_producto&m=4");
+					}
+				}
+			}
+			catch(Exception $e)
+			{
+				throw $e;
+			}
+		}
+
 		// Function that deletes a product by id_product
 		public function eliminar_producto($id_producto)
 		{

@@ -74,7 +74,7 @@
         <td>
           <?php echo $datos[$i]["producto_titulo"]; ?> <br>
           <a href="index.php?edit_producto&editar=<?php echo $datos[$i]['id_producto'];?>">
-            <img src="<?php echo $datos[$i]['producto_imagen'];?>" alt="" width="100">
+            <img src="../uploads/<?php echo $datos[$i]['producto_imagen'];?>" alt="" width="100">
           </a>  
         </td>
         <td>

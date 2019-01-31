@@ -1,9 +1,16 @@
 <?php
     try
     {
+    	$producto = new Productos();
+
         $categoria = new Categorias();
 
         $listar_categorias = $categoria->get_categorias();
+
+        if(isset($_POST["publicar"]))
+        {
+        	$producto->insertar_producto();
+        }
     }
     catch(Exception $e)
     {
@@ -17,6 +24,36 @@
         <h1 class="page-header">
            Agregar Producto
         </h1>
+		
+		<!-- Area: Show messages -->
+        <?php
+            if(isset($_GET["m"]))
+            {
+                switch($_GET["m"])
+                {
+                    case 1:
+        ?>
+                        <h1 class="text-danger bg-danger">Los campos estan vacíos</h1>
+        <?php
+                        break;
+                    case 2:
+        ?>
+                        <h1 class="text-danger bg-danger">Falla en la consulta</h1>
+        <?php
+                        break;
+                    case 3:
+        ?>
+                        <h1 class="text-success bg-success">Se inserto el producto</h1>
+        <?php
+                        break;
+                    case 4:
+        ?>
+        				<h1 class="bg-danger text-danger">No se inserto el producto</h1>
+        <?php
+                    	break;
+                }
+            }
+        ?>
     </div>               
 </div>
 
@@ -24,8 +61,8 @@
     <div class="col-md-8">
 
         <div class="form-group">
-            <label for="product-titulo">Producto Titulo </label>
-            <input type="text" name="product_titulo" class="form-control">   
+            <label for="producto-titulo">Producto Titulo </label>
+            <input type="text" name="producto_titulo" class="form-control">   
         </div>
 
         <div class="form-group">
@@ -57,9 +94,9 @@
 
          <!-- Product Categories-->
         <div class="form-group">
-            <label for="product-id_categoria">Product Categoria</label>
+            <label for="producto-id_categoria">Product Categoria</label>
             <hr>
-            <select name="product_id_categoria" id="" class="form-control">
+            <select name="producto_id_categoria" id="" class="form-control">
                 <option value="">Seleccione Categoria</option>
 
             <?php
