@@ -8,6 +8,9 @@
 <!-- Adding file Productos.php -->
 <?php require_once "Modelos/Productos.php";?>
 
+<!-- Adding file Categorias.php-->
+<?php require_once "Modelos/Categorias.php";?>
+
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -33,7 +36,7 @@
                     $url = $_SERVER["REQUEST_URI"];
 
                     // Condition: with and without index.php from admin page index
-                    if($url == "/EccomercePHP/admin/" || $url == "/EccomercePHP/admin/index.php")
+                   if($url == "/EccomercePHP/admin/" || $url == "/EccomercePHP/admin/index.php")
                     {
                         require_once "includes/admin_contenido.php";
                     }

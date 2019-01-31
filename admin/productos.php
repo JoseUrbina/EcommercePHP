@@ -53,6 +53,7 @@
   }
 ?>
 
+  <a href="index.php?add_producto" class="btn btn-primary">Añadir producto</a>
 
   <table class="table table-hover">
     <thead>

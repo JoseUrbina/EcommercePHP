@@ -1,3 +1,17 @@
+<?php
+    try
+    {
+        $categoria = new Categorias();
+
+        $listar_categorias = $categoria->get_categorias();
+    }
+    catch(Exception $e)
+    {
+        die("Error: {$e->getMessage()}");
+    }
+
+?>
+
 <div class="col-md-12">
     <div class="row">
         <h1 class="page-header">
@@ -47,6 +61,13 @@
             <hr>
             <select name="product_id_categoria" id="" class="form-control">
                 <option value="">Seleccione Categoria</option>
+
+            <?php
+                for($i=0;$i<count($listar_categorias);$i++){
+                    echo "<option value='".$listar_categorias[$i]['id_categoria']."'>
+                          {$listar_categorias[$i]['cat_titulo']}</option>";
+                }
+            ?>
             </select>
         </div>
 
