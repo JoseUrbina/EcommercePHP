@@ -48,7 +48,7 @@
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <a href="item.php?id_producto=<?php echo $id_producto;?>">
-                                <img src="<?php echo $producto_imagen;?>" alt="">
+                                <img src="<?php echo "uploads/" . $producto_imagen;?>" alt="">
                             </a>
                             
                             <div class="caption">

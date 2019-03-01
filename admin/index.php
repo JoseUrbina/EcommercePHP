@@ -64,6 +64,12 @@
                     {
                         require_once "add_producto.php";
                     }
+
+                    // if it exists this variable, call edit_producto.php
+                    if(isset($_GET["edit_producto"]))
+                    {
+                        require_once "edit_producto.php";
+                    }
                 ?>
             </div>
             <!-- /.container-fluid -->

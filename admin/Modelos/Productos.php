@@ -3,6 +3,7 @@
 	{
 		private $db;
 		private $productos;
+		private $producto_por_id;
 
 		public function __construct()
 		{
@@ -10,6 +11,7 @@
 			{
 				$this->db = Conectar::conexion();
 				$this->productos = array();
+				$this->producto_por_id = array();
 			}
 			catch(Exception $e)
 			{
@@ -119,6 +121,41 @@
 			catch(Exception $e)
 			{
 				throw $e;
+			}
+		}
+
+		// Functio that allows us to get product datas by id
+		public function get_producto_por_id($id_producto)
+		{
+			try
+			{
+				$sql = "SELECT * FROM productos WHERE id_producto = :id_producto";
+
+				$result = $this->db->prepare($sql);
+
+				$result->bindValue(":id_producto", $id_producto);
+
+				if(!$result->execute())
+				{
+					echo "<h1 style='color:red;'>Failed query!</h1>";
+				}
+				else
+				{
+
+					if($result->rowCount() > 0)
+					{
+						while($row = $result->fetch(PDO::FETCH_ASSOC))
+						{
+							$this->producto_por_id[] = $row;
+						}
+
+						return $this->producto_por_id;
+					}					
+				}
+			}
+			catch(Exception $e)
+			{
+				die("Error: {$e->getMessage()}");
 			}
 		}
 
