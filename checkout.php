@@ -99,7 +99,10 @@
                                     $item_cantidad += $valor;
           ?>
             <tr>
-                <td><?php echo $producto_titulo;?></td>
+                <td><?php echo $producto_titulo;?><br>
+                    <!-- Show Product image : Video 44 -->
+                    <img width="100" src="uploads/<?php echo $producto_imagen;?>">
+                </td>
                 <td>&#36;<?php echo "{$producto_precio}";?></td>
                 <td><?php echo $valor;?></td>
                 <td>&#36;<?php echo $sub_total;?></td>

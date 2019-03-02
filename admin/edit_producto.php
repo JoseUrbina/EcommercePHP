@@ -14,10 +14,10 @@
             $datos = $producto->get_producto_por_id($id_producto);
         }
 
-        // COnditional to edit a product
+        // Conditional to edit a product
         if(isset($_POST["editar_producto"]))
         {
-            $producto->insertar_producto();
+            $producto->editar_producto();
         }
     }
     catch(Exception $e)
@@ -51,12 +51,12 @@
                         break;
                     case 3:
         ?>
-                        <h1 class="text-success bg-success">Se inserto el producto</h1>
+                        <h1 class="text-success bg-success">Se edito el producto</h1>
         <?php
                         break;
                     case 4:
         ?>
-                        <h1 class="bg-danger text-danger">No se inserto el producto</h1>
+                        <h1 class="bg-danger text-danger">No se edito el producto</h1>
         <?php
                         break;
                 }
@@ -79,8 +79,7 @@
 
         <div class="form-group">
             <label for="producto-descripcion">Producto Descripción</label>
-            <textarea name="producto_descripcion" id="" cols="30" rows="10" class="form-control"><?php echo $datos[0]["producto_descripcion"];?>
-            </textarea>
+            <textarea name="producto_descripcion" id="" cols="30" rows="10" class="form-control"><?php echo $datos[0]["producto_descripcion"];?></textarea>
         </div>
 
         <div class="form-group row">
@@ -92,9 +91,7 @@
 
         <div class="form-group">
             <label for="descripcion_corta">Descripcion Corta</label>
-            <textarea cols="30" rows="3" class="form-control" name="descripcion_corta">
-                <?php echo $datos[0]["descripcion_corta"];?>
-            </textarea>
+            <textarea name="descripcion_corta" cols="30" rows="3" class="form-control"><?php echo $datos[0]["descripcion_corta"];?></textarea>
         </div>
 
     </div><!--Main Content-->
@@ -145,7 +142,14 @@
             <label for="producto-imagen">Producto Imagen</label>
             <input type="file" name="producto_imagen">
             <hr>
-            <img width="200" src="../uploads/<?php echo $datso[0]['producto_imagen'];?>">
+            <img width="200" src="../uploads/<?php echo $datos[0]['producto_imagen'];?>">
         </div>
+    
+        <!-- 
+            Campo que almacena el valor de la imagen que se encuentra en la BD,
+            utilizado en caso de que el input file sea vacío
+        -->
+        <input type="hidden" name="archivo" 
+               value="<?php echo $datos[0]['producto_imagen'];?>">
     </aside><!--SIDEBAR-->   
 </form>

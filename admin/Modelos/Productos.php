@@ -211,6 +211,98 @@
 			}
 		}
 
+		/* Edit product */
+		public function editar_producto()
+		{
+			// Validate if the fields are empty
+			 
+			if(empty($_POST["producto_titulo"]) or
+			   empty($_POST["producto_id_categoria"]) or 
+			   empty($_POST["producto_precio"]) or 
+			   empty($_POST["producto_cantidad"]) or 
+			   empty($_POST["producto_descripcion"]) or 
+			   empty($_POST["descripcion_corta"]))
+			{
+				header("Location:index.php?edit_producto&editar=" . $_GET["editar"] . 
+					   "&m=1"); exit();
+			}
+
+			/*
+			   Se declaran variables para almacenar los valores que se envian desde el formulario
+			*/
+
+			$id_producto = (int)$_GET["editar"];
+			$producto_titulo = htmlentities(addslashes($_POST["producto_titulo"]));
+			$producto_id_categoria = $_POST["producto_id_categoria"];
+			$producto_precio = $_POST["producto_precio"];
+			$producto_cantidad = $_POST["producto_cantidad"];
+			$producto_descrip = htmlentities(addslashes($_POST["producto_descripcion"]));
+			$descripcion_corta = htmlentities(addslashes($_POST["descripcion_corta"]));
+
+			try
+			{
+				$sql = "UPDATE productos SET 
+						producto_titulo = :producto_titulo,
+						producto_id_categoria = :producto_id_categoria,
+						producto_precio = :producto_precio,
+						producto_cantidad = :producto_cantidad,
+						producto_descripcion = :producto_descripcion,
+						descripcion_corta = :descripcion_corta, 
+						producto_imagen = :producto_imagen
+						WHERE id_producto = :id_producto";
+
+				// SI el campo de imagen es vació, tomar el valor
+				// de la BD almacenado en el input hidden archivo
+				
+				if(empty($_FILES["producto_imagen"]["name"]))
+				{
+					$producto_imagen = $_POST["archivo"];
+				}
+				else
+				{
+					// Si el campo archivo esta lleno realizar las sig. operaciones
+					$producto_imagen = $_FILES["producto_imagen"]["name"];
+					$producto_imagen_tmp = $_FILES["producto_imagen"]["tmp_name"];
+
+					move_uploaded_file($producto_imagen_tmp, 
+						               "../uploads/$producto_imagen");
+				}
+
+				$result = $this->db->prepare($sql);
+
+				$result->bindValue(":producto_titulo", $producto_titulo);
+				$result->bindValue(":producto_id_categoria", $producto_id_categoria);
+				$result->bindValue(":producto_precio", $producto_precio);
+				$result->bindValue(":producto_cantidad", $producto_cantidad);
+				$result->bindValue(":producto_descripcion", $producto_descrip);
+				$result->bindValue(":descripcion_corta", $descripcion_corta);
+				$result->bindValue(":producto_imagen", $producto_imagen);
+				$result->bindValue(":id_producto", $id_producto);
+
+				if(!$result->execute())
+				{
+					header("Location:index.php?edit_producto&editar={$id_producto}&m=2");
+				}
+				else
+				{
+					// Edit record
+					if($result->rowCount() > 0)
+					{
+						header("Location:index.php?edit_producto&editar={$id_producto}&m=3");
+					}
+					else 
+					{
+						// Record has not edited
+						header("Location:index.php?edit_producto&editar={$id_producto}&m=4");
+					}
+				}
+			}
+			catch(Exception $e)
+			{
+				die("Error: {$e->getMessage()}");
+			}
+		}
+
 		/*
 			Mostrar el titulo de la categoria en la tabla productos del admin
 		*/
