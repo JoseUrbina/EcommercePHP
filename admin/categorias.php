@@ -9,14 +9,12 @@
 
         // we are validating if we are sending datas
         if(isset($_POST["submit"]))
-            $categoria->insertar_categoria();
-
+            $categoria->insertar_categoria();        
     }
     catch(Exception $e)
     {
         die("Error: {$e->getMessage()}");
     }
-
 ?>
 
 <h1 class="page-header">
@@ -31,27 +29,32 @@
             case 1:
 ?>
                 <h1 class="text-danger bg-danger">El campo esta vacio</h1>
-<?
+<?php
                 break;
             case 2:
 ?>
                 <h1 class="text-danger bg-danger">Fallo en la consulta</h1>
-<?
+<?php
                 break;
             case 3:
 ?>
                 <h1 class="text-danger bg-danger">Ya existe la categoria</h1>
-<?
+<?php
                 break;
             case 4: 
 ?>
                 <h1 class="text-success bg-success">Se ha insertado la categoria</h1>
-<?  
+<?php  
                 break;
             case 5:
 ?>
                 <h1 class="text-danger bg-danger">No se ha insertado la categoria</h1>
-<?
+<?php
+                break;
+            case 6:
+?>
+                <h1 class="text-danger bg-danger">No existe el id de la categoria</h1>
+<?php
                 break;
         }
     }
@@ -68,6 +71,14 @@
             <input type="submit" name="submit" class="btn btn-primary" value="Añadir Categoria">
         </div>      
     </form>
+
+    <?php
+        // if we click on the editar button, show us the form 
+        if(isset($_GET["editar"]))
+        {
+            require_once "edit_categorias.php";
+        }
+    ?>
 </div>
 
 <div class="col-md-8">

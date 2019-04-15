@@ -47,6 +47,55 @@ class Categorias extends Conectar
 		}
 	}
 
+	// show the categoria record by id_categoria
+	public function get_categoria_por_id($id_categoria)
+	{
+		try
+		{			
+			$sql = "SELECT * FROM categorias WHERE id_categoria = :id_categoria";
+
+			$resultado = $this->db->prepare($sql);
+
+			$resultado->bindValue(":id_categoria", $id_categoria);
+
+			if(!$resultado->execute())
+			{
+				header("Location:index.php?categorias&m=2");
+			}
+			else
+			{
+				// Existe la categoria en la BD
+				if($resultado->rowCount() > 0)
+				{
+					while($reg = $resultado->fetch(PDO::FETCH_ASSOC))
+					{
+						
+						$cat_titulo = $reg["cat_titulo"];
+
+						/*
+							In this case, we just need to show the cat_title
+							into a input field 
+						*/
+
+						echo "<input name='cat_titulo' value='". $cat_titulo ."' type='text' class='form-control'>";
+					}
+				}
+				else
+				{	
+					/*
+						No existe el id categoria
+					 */
+					header("Location:index.php?categorias&m=6");
+				}
+				
+			}
+		}
+		catch(Exception $e)
+		{
+			throw $e;
+		}
+	}
+
 	// Insertar nueva categoria
 	public function insertar_categoria()
 	{	
