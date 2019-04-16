@@ -7,9 +7,17 @@
         // Get all categories from DB
         $datos = $categoria->get_categorias();
 
+        // We are editing a specific category
+        if(isset($_POST["editar_categoria"]))
+        {
+            $categoria->editar_categoria(); 
+        }
+
         // we are validating if we are sending datas
         if(isset($_POST["submit"]))
-            $categoria->insertar_categoria();        
+        {
+            $categoria->insertar_categoria();       
+        }
     }
     catch(Exception $e)
     {
@@ -54,6 +62,16 @@
             case 6:
 ?>
                 <h1 class="text-danger bg-danger">No existe el id de la categoria</h1>
+<?php
+                break;
+            case 7:
+?>
+                <h1 class="text-success bg-success">Se editó la categoria</h1>
+<?php
+                break;
+            case 8:
+?>
+                <h1 class="text-danger bg-danger">No se editó la categoria</h1>
 <?php
                 break;
         }

@@ -165,6 +165,80 @@ class Categorias extends Conectar
 			}
 		}
 	}
+
+	// Function that allows us to edit a specific category
+	public function editar_categoria()
+	{
+		// this case the id_categoria is in the url like editar
+		$id_categoria = $_GET["editar"];
+		$cat_titulo = htmlentities(addslashes($_POST["cat_titulo"]));
+
+		// if field is empty, return a message error
+		if(empty($_POST["cat_titulo"]))
+		{
+			header("Location:index.php?categorias&editar={$id_categoria}&m=1");
+			exit();
+		}
+		else
+		{
+			try
+			{		
+				$sql_search = "SELECT cat_titulo FROM categorias 
+							   WHERE cat_titulo = :cat_titulo";
+
+				$resultado_search = $this->db->prepare($sql_search);
+
+				$resultado_search->bindValue(":cat_titulo", $cat_titulo);
+
+				// Failed query
+				if(!$resultado_search->execute())
+				{
+					header("Location:index.php?categorias&m=2");
+				}
+				else
+				{	
+					// si la categoria existe en la BD
+					if($resultado_search->rowCount() > 0)
+					{
+						header("Location:index.php?categorias&editar={$id_categoria}&m=3");
+					}
+					else
+					{
+						// Update Record
+						$sql_update = "UPDATE categorias SET cat_titulo = :cat_titulo 
+									   WHERE id_categoria = :id_categoria";
+
+						$resultado_update = $this->db->prepare($sql_update);
+						$resultado_update->bindValue(":cat_titulo", $cat_titulo);
+						$resultado_update->bindValue(":id_categoria", $id_categoria);
+
+						// failed query
+						if(!$resultado_update->execute())
+						{
+							header("Location:index.php?categorias&m=2");
+						}
+						else
+						{
+							// It edited category
+							if($resultado_update->rowCount() > 0)
+							{
+								header("Location:index.php?categorias&editar={$id_categoria}&m=7");
+							}
+							else
+							{
+								// No se edito el registro
+								header("Location:index.php?categorias&editar={$id_categoria}&m=8");
+							}
+						}
+					}
+				}
+			}
+			catch(Exception $e)
+			{
+				throw $e;
+			}
+		}
+	}
 }
 
 ?>
