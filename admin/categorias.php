@@ -18,6 +18,14 @@
         {
             $categoria->insertar_categoria();       
         }
+
+        // we are deleting a specific category by id
+        if(isset($_GET["eliminar"]))
+        {
+            $id_categoria = $_GET["eliminar"];
+
+            $categoria->eliminar_categoria($id_categoria);
+        }
     }
     catch(Exception $e)
     {
@@ -72,6 +80,16 @@
             case 8:
 ?>
                 <h1 class="text-danger bg-danger">No se editó la categoria</h1>
+<?php
+                break;
+            case 9:
+?>
+                <h1 class="text-success bg-success">Se eliminó la categoria</h1>
+<?php
+                break;
+            case 10:
+?>
+                <h1 class="text-danger bg-danger">No se eliminó la categoria</h1>
 <?php
                 break;
         }

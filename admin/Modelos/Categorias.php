@@ -239,6 +239,67 @@ class Categorias extends Conectar
 			}
 		}
 	}
+
+	// Function that deletes a specific category by id
+	public function eliminar_categoria($id_categoria)
+	{
+		try
+		{
+			$sql_search = "SELECT id_categoria FROM categorias 
+						   WHERE id_categoria = :id_categoria";
+
+			$resultado_search = $this->db->prepare($sql_search);
+
+			$resultado_search->bindValue(":id_categoria", $id_categoria);
+
+			// Failed query
+			if(!$resultado_search->execute())
+			{
+				header("Location:index.php?categorias&m=2");
+			}
+			else
+			{
+				// If category exists
+				if($resultado_search->rowCount() > 0)
+				{
+					$sql_delete = "DELETE FROM categorias 
+								   WHERE id_categoria = :id_categoria";
+
+					$resultado_delete = $this->db->prepare($sql_delete);
+
+					$resultado_delete->bindValue(":id_categoria", $id_categoria);
+
+					// failed query
+					if(!$resultado_delete->execute())
+					{
+						header("Location:index.php?categorias&m=2");
+					}
+					else
+					{
+						// if category was deleted
+						if($resultado_delete->rowCount() > 0)
+						{
+							header("Location:index.php?categorias&m=9");
+						}
+						else
+						{
+							// if category was not deleted
+							header("Location:index.php?categorias&m=10");
+						}
+					}
+				}
+				else
+				{
+					// If category does not exist
+					header("Location:index.php?categorias&m=6");
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			throw $e;
+		}
+	}
 }
 
 ?>
