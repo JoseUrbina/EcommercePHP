@@ -11,6 +11,9 @@
 <!-- Adding file Categorias.php-->
 <?php require_once "Modelos/Categorias.php";?>
 
+<!-- Adding file Usuarios.php -->
+<?php require_once "Modelos/Usuarios.php";?>
+
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -70,6 +73,25 @@
                     {
                         require_once "edit_producto.php";
                     }
+
+                    // if it exists this variable, call usuarios.php
+                    if(isset($_GET["usuarios"]))
+                    {
+                        require_once "usuarios.php";
+                    }
+
+                    // if it exists this variable, call add_usuario.php
+                    if(isset($_GET["add_usuario"]))
+                    {
+                        require_once "add_usuario.php";
+                    }
+
+                    // if it exists this variable, call edit_usuario.php
+                    if(isset($_GET["edit_usuario"]))
+                    {
+                        require_once "edit_usuario.php";
+                    }
+
                 ?>
             </div>
             <!-- /.container-fluid -->

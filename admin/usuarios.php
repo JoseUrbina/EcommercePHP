@@ -1,200 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
+    try
+    {
+        $usuario = new Usuarios();
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        $datos = $usuario->get_usuarios();
+    }
+    catch(Exception $e)
+    {
+        die("Error: {$e->getMessage()}");
+    }
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+?>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+<div class="col-lg-12">
+    <h1 class="page-header">
+        Usuarios
+    </h1>
+      
+    <a href="index.php?add_usuario" class="btn btn-primary">Añadir Usuario</a>
 
-    <!-- Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($datos as $user){?>
 
-    <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
+                <tr>
+                    <td><?php echo $user["id_usuario"];?></td>
+                    <td><?php echo $user["nombre"];?></td>
+                    <td><?php echo $user["apellido"];?></td>
+                    <td><?php echo $user["usuario"];?></td>
+                    <td><?php echo $user["correo"];?></td>
+                    <td>
+                        <a href="index.php?edit_usuario&id_usuario=<?php echo $user['id_usuario'];?>" class="btn btn-success"><i class="fa fa-pencil"></i> Editar</a>
+                    </td>
+                    <td><a onClick="javascript:return confirm('¿Estas seguro que lo quieres eliminar?');" href="index.php?usuarios&eliminar=<?php echo $user["id_usuario"];?>" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a></td>
+                </tr>
 
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-              <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> View Products</a>
-                    </li>
-                    <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Add Product</a>
-                    </li>
-                    
-                    <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Categories</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i>Orders</a>
-                    </li>
-                
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-
-
-        <div id="page-wrapper">
-
-            <div class="container-fluid">
-
-
-
-                    <div class="col-lg-12">
-                      
-
-                        <h1 class="page-header">
-                            Users
-                         
-                        </h1>
-                          
-
-                        <a href="add_user.php" class="btn btn-primary">Add User</a>
-
-
-                        <div class="col-md-12">
-
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Photo</th>
-                                        <th>Username</th>
-                                        <th>First Name</th>
-                                        <th>Last Name </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                              
-
-                                    <tr>
-
-                                        <td>2</td>
-                                        <td><img class="admin-user-thumbnail user_image" src="placehold.it/62x62" alt=""></td>
-                                        
-                                        <td>ucevito
-                                              <div class="action_links">
-
-                                                <a href="">Delete</a>
-                                                <a href="">Edit</a>
-                    
-                                                
-                                            </div>
-                                        </td>
-                                        
-                                        
-                                        <td>Eyter</td>
-                                       <td>Higuera</td>
-                                    </tr>
-
-
-                             
-                                    
-                                </tbody>
-                            </table> <!--End of Table-->
-                        
-
-                        </div>
-
-
-
-
-
-
-
-
-
-
-                        
-                    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
-    <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
-
-</body>
-
-</html>
+                <?php }?>
+            </tbody>
+        </table> <!--End of Table-->
+    </div>  
+</div>
