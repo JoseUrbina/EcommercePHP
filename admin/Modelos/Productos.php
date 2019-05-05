@@ -30,7 +30,7 @@
 
 				if(!$result->execute())
 				{
-					echo "<h1 class='text-danger bg-danger'>Failed query!</h1>";
+				   echo "<h1 class='text-danger bg-danger'>Failed query!</h1>";
 				}
 				else
 				{
@@ -93,11 +93,14 @@
 				$resultado = $this->db->prepare($sql);
 
 				$resultado->bindValue(":producto_titulo", $producto_titulo);
-				$resultado->bindValue(":producto_id_categoria", $producto_id_categoria);
+				$resultado->bindValue(":producto_id_categoria", 
+									   $producto_id_categoria);
 				$resultado->bindValue(":producto_precio",$producto_precio);
-				$resultado->bindValue(":producto_cantidad", $producto_cantidad);
-				$resultado->bindValue(":producto_descripcion", $producto_descrip);
-				$resultado->bindValue(":descripcion_corta", $descripcion_corta);
+				$resultado->bindValue(":producto_cantidad",$producto_cantidad);
+				$resultado->bindValue(":producto_descripcion",
+									  $producto_descrip);
+				$resultado->bindValue(":descripcion_corta", 
+									   $descripcion_corta);
 				$resultado->bindValue(":producto_imagen", $producto_imagen);
 
 				if(!$resultado->execute())
@@ -129,7 +132,8 @@
 		{
 			try
 			{
-				$sql = "SELECT * FROM productos WHERE id_producto = :id_producto";
+				$sql = "SELECT * FROM productos 
+						WHERE id_producto = :id_producto";
 
 				$result = $this->db->prepare($sql);
 
@@ -164,7 +168,8 @@
 		{
 			try
 			{
-				$sql_search = "SELECT * FROM productos WHERE id_producto = :id_producto";
+				$sql_search = "SELECT * FROM productos 
+							   WHERE id_producto = :id_producto";
 
 				$result_search = $this->db->prepare($sql_search);
 				$result_search->bindValue(":id_producto", $id_producto);
@@ -179,7 +184,8 @@
 					// if we find the product by id_product
 					if($result_search->rowCount() > 0)
 					{
-						$sql_delete = "DELETE FROM productos WHERE id_producto = :id_producto";
+						$sql_delete = "DELETE FROM productos 
+									   WHERE id_producto = :id_producto";
 
 						$result_delete = $this->db->prepare($sql_delete);
 						$result_delete->bindValue(":id_producto", $id_producto);
@@ -271,7 +277,8 @@
 				$result = $this->db->prepare($sql);
 
 				$result->bindValue(":producto_titulo", $producto_titulo);
-				$result->bindValue(":producto_id_categoria", $producto_id_categoria);
+				$result->bindValue(":producto_id_categoria", 
+									$producto_id_categoria);
 				$result->bindValue(":producto_precio", $producto_precio);
 				$result->bindValue(":producto_cantidad", $producto_cantidad);
 				$result->bindValue(":producto_descripcion", $producto_descrip);
