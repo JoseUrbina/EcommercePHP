@@ -4,6 +4,7 @@ class Usuarios extends Conectar
 {
 	private $db;
 	private $usuarios;
+	private $usuario_por_id;
 
 	public function __construct()
 	{
@@ -11,6 +12,7 @@ class Usuarios extends Conectar
 		{
 			$this->db = parent::conexion();
 			$this->usuarios = array();
+			$this->usuario_por_id = array();
 		}
 		catch(Exception $e)
 		{
@@ -167,6 +169,46 @@ class Usuarios extends Conectar
 			}
 		}
 	} // Cierre de la funcion
+
+	// Getting usser by id
+	public function get_usuario_por_id($id_usuario)
+	{
+		try
+		{
+			$sql = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario";
+
+			$resultado = $this->db->prepare($sql);
+			$resultado->bindValue(":id_usuario", $id_usuario);
+
+			// Failed query
+			if(!$resultado->execute())
+			{
+				header("Location:index.php?usuarios&m=1");
+			}
+			else
+			{
+				// if user exists then we need to return data
+				if($resultado->rowCount() > 0)
+				{
+					while($reg = $resultado->fetch(PDO::FETCH_ASSOC))
+					{
+						$this->usuario_por_id[] = $reg;
+					}
+
+					return $this->usuario_por_id;
+				}
+				else
+				{
+					// Else: return m : error message to file usuarios.php
+					header("Location:index.php?usuarios&m=2");
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			throw $e;
+		}
+	}
 }
 
 ?>
