@@ -2,9 +2,9 @@
 
     try
     {
-        $usuario = new Usuarios();
+        $usuarios = new Usuarios();
 
-        $datos = $usuario->get_usuarios();
+        $datos = $usuarios->get_usuarios();
     }
     catch(Exception $e)
     {
@@ -17,6 +17,40 @@
     <h1 class="page-header">
         Usuarios
     </h1>
+
+<?php
+    if(isset($_GET["m"]))
+    {
+        switch($_GET["m"])
+        {
+            case 1:
+?>
+                <h2 class="text-danger bg-danger">Falló en la consulta</h2>
+<?php
+                break;
+            case 2:
+?>
+                <h2 class="text-danger bg-danger">No existe el id y/o el usuario que quire editar.</h2>
+<?php
+                break;
+            case 3:
+?>
+                <h2 class="text-success bg-success">Se ha eliminado el registro del usuario</h2>
+<?php
+                break;
+            case 4:
+?>
+                <h2 class="text-danger bg-danger">No se ha eliminado el registro del usuario</h2>
+<?php
+                break;
+            case 5:
+?>
+                <h2 class="text-danger bg-danger">No existe el id y/o usuario en la base de datos</h2>
+<?php
+                break;
+        }
+    }
+?>
       
     <a href="index.php?add_usuario" class="btn btn-primary">Añadir Usuario</a>
 
