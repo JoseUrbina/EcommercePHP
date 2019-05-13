@@ -5,6 +5,14 @@
         $usuarios = new Usuarios();
 
         $datos = $usuarios->get_usuarios();
+
+        // Condition thar allows us to delete a user by id
+        if(isset($_GET["eliminar"]))
+        {
+            $id_usuario = htmlentities(addslashes($_GET["eliminar"]));
+
+            $usuarios->eliminar_usuario($id_usuario);
+        }
     }
     catch(Exception $e)
     {
