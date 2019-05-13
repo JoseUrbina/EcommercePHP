@@ -3,6 +3,12 @@
 	{
 		$usuarios = new Usuarios();
 
+		// with this, we can edit x user then a post request
+		if(isset($_POST["editar_usuario"]))
+		{
+			$usuarios->editar_usuario();
+		}
+
 		// if url contains the variable id_usuario :
 		// we can call the function to get a user by id
 		if(isset($_GET["id_usuario"]))
@@ -15,11 +21,40 @@
 		{	
 			// else: return to usuarios.php and to show a error message
 			header("Location:index.php?usuarios&m=2");
-		}
+		}		
 	}
 	catch(Exception $e)
 	{
 		die("Error: {$e->getMessage()}");
+	}
+?>
+
+<?php
+	if(isset($_GET["m"]))
+	{
+		switch($_GET["m"])
+		{
+			case 1:
+?>
+				<h2 class="text-danger bg-danger">El campo está vacío</h2>
+<?php
+				break;
+			case 2:
+?>
+				<h2 class="text-danger bg-danger">Falló en la consulta</h2>
+<?php
+				break;
+			case 3:
+?>
+				<h2 class="text-success bg-success">Se editó el registro</h2>
+<?php
+				break;
+			case 4:
+?>
+				<h2 class="text-danger bg-danger">No se editó el registro</h2>
+<?php
+				break;
+		}
 	}
 ?>
 
@@ -57,7 +92,7 @@
 	</div>
 
 	<div class="form-group">
-		<input type="submit" name="edit_usuario" value="Editar usuario" 
+		<input type="submit" name="editar_usuario" value="Editar usuario" 
 			   class="btn btn-primary">
 	</div>
 </form>

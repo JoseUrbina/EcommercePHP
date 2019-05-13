@@ -209,6 +209,105 @@ class Usuarios extends Conectar
 			throw $e;
 		}
 	}
+
+	/* Edit Usuario */
+	public function editar_usuario()
+	{
+
+		/*Declare variables which are sent by user from the form*/
+
+		$id_usuario = $_GET["id_usuario"];
+		$nombre = htmlentities(addslashes($_POST["nombre"]));
+		$apellido = htmlentities(addslashes($_POST["apellido"]));
+
+		/*
+		
+			*** 
+				We declared these variables, but it's not necessary
+				because we did not use them. 
+			***
+		
+			$usuario = $_POST["usuario"];
+			$correo = $_POST["correo"];
+			$password = $_POST["password"];
+		*/
+
+		// Validate if fields are empty and to return a error message
+		if(empty($nombre) or empty($apellido))
+		{
+			header("Location:index.php?edit_usuario&id_usuario=" . 
+				    $id_usuario . "&m=1");
+			exit();
+		}
+		else
+		{
+			try
+			{
+				/*Validate if it exists the id usuario into DB*/
+
+				$sql_search = "SELECT id_usuario FROM usuarios
+							   WHERE id_usuario = :id_usuario";
+
+				$resultado_search = $this->db->prepare($sql_search);
+				$resultado_search->bindValue(":id_usuario", $id_usuario);
+
+				// Failed query
+				if(!$resultado_search->execute())
+				{
+					header("Location:index.php?edit_usuario&id_usuario=" .
+							$id_usuario . "&m=2");
+				}
+				else
+				{
+					// if user exist, we will follow to edit it
+					if($resultado_search->rowCount() > 0)
+					{
+						/** Editing User **/
+
+						$sql = "UPDATE usuarios 
+								SET nombre = :nombre, apellido=:apellido 
+								WHERE id_usuario = :id_usuario";
+
+						$resultado = $this->db->prepare($sql);
+						$resultado->bindValue(":nombre", $nombre);
+						$resultado->bindValue(":apellido", $apellido);
+						$resultado->bindValue(":id_usuario", $id_usuario);
+
+						// failed query : return edit_usuario page
+						if(!$resultado->execute())
+						{
+							header("Location:index.php?edit_usuario" . 
+							   	   "&id_usuario={$id_usuario}&m=2");
+						}
+						else
+						{
+							// if record has been edited successfully
+							if($resultado->rowCount() > 0)
+							{
+								header("Location:index.php?edit_usuario" . 
+								   	   "&id_usuario={$id_usuario}&m=3");
+							}
+							else
+							{
+								// if record has not been edited
+								header("Location:index.php?edit_usuario" . 
+								  	   "&id_usuario={$id_usuario}&m=4");
+							}
+						}
+					}
+					else
+					{	
+						// if id_usuario has not found, return to usuarios page
+						header("Location:index.php?usuarios&m=2");
+					}
+				}
+			}
+			catch(Exception $e)
+			{
+				throw $e;
+			}
+		}
+	}
 }
 
 ?>
