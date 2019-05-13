@@ -308,6 +308,69 @@ class Usuarios extends Conectar
 			}
 		}
 	}
+
+	// function which deletes a user by id
+	public function eliminar_usuario($id_usuario)
+	{
+		try
+		{
+			// Searching if user exists in DB
+
+			$sql_search = "SELECT id_usuario FROM usuarios
+						   WHERE id_usuario = :id_usuario";
+
+			$resultado_search = $this->db->prepare($sql_search);
+			$resultado_search->bindValue(":id_usuario", $id_usuario);
+
+			// failed query
+			if(!$resultado_search->execute())
+			{
+				header("Location:index.php?usuarios&m=1");
+			}
+			else
+			{	
+				// User has been found in the DB
+				if($resultado_search->rowCount() > 0)
+				{
+					// we are gonna delete the user by id
+
+					$sql_delete = "DELETE FROM usuarios 
+								   WHERE id_usuario = :id_usuario";
+
+					$resultado_delete = $this->db->prepare($sql_delete);
+					$resultado_delete->bindValue(":id_usuario", $id_usuario);
+
+					// failed query
+					if(!$resultado_delete->execute())
+					{
+						header("Location:index.php?usuarios&m=1");
+					}
+					else
+					{
+						if($resultado_delete->rowCount() > 0)
+						{
+							// User has been deleted successfully
+							header("Location:index.php?usuarios&m=3");
+						}
+						else
+						{
+							// User has not been deleted
+							header("Location:index.php?usuarios&m=4");
+						}
+					}
+				}
+				else
+				{
+					// if user has not been found in DB
+					header("Location:index.php?usuarios&m=5");
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			throw $e;
+		}
+	}
 }
 
 ?>
