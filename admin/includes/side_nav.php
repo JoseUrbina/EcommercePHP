@@ -5,8 +5,11 @@
         <li class="active">
             <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
         </li>
-        <li class="">
+        <li>
             <a href="index.php?pedidos"><i class="fa fa-fw fa-dashboard"></i> Pedidos</a>
+        </li>
+        <li>
+            <a href="index.php?reportes"><i class="fa fa-fw fa-dashboard"></i> Reportes</a> 
         </li>
         <li>
             <a href="index.php?productos"><i class="fa fa-fw fa-bar-chart-o"></i> Ver Productos</a>
