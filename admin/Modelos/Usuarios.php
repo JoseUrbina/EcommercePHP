@@ -371,6 +371,88 @@ class Usuarios extends Conectar
 			throw $e;
 		}
 	}
+
+	/*Function LOGIN*/
+
+	public function Login($correo, $password)
+	{
+        // Validate empty fields
+        if(empty($correo) && empty($password))
+        {
+            echo "<h1 class='text-center text-danger bg-danger'>Empty fields in the form</h1>";
+        
+        /*
+			El formato del password debe tener al menos una letra mayúscula, una letra minúscula, un caracter extraño y un número, por ejemplo en este proyecto esta $Qw/*12345678$ no importa el orden lo importante es que se cumple el formato.
+		*/
+	
+		/*
+			Si no se cumple esta expresion regular con un formato del password de que al menos tenga una letra mayúscula, una letra minúscula, un caracter extraño y un número y que sean minimo 12 caracteres.
+		 */
+		
+		}
+		else if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){12,15}$/",$password))
+		{
+			echo "<h2 class='text-center text-danger bg-danger'>" 
+				 . "El password no existe en la base de datos</h2>";
+		}
+        else
+        {
+            // Validating if the email exist in the database
+            
+            try
+            {
+                $sql = "SELECT * FROM usuarios 
+                		WHERE correo = :correo";
+                $resultado = $this->db->prepare($sql);
+                $resultado->bindValue(':correo', $correo);
+
+                // Validate if it exist an query error
+                if(!$resultado->execute())
+                {
+                    echo "<h1 class='text-center text-danger bg-danger'>Failded query</h1>";
+                }
+                else
+                {
+                    // Validating if email exists in database
+                    if($resultado->rowCount() > 0)
+                    {
+                        $reg = $resultado->fetch(PDO::FETCH_ASSOC);
+
+                        $id_usuario = $reg['id_usuario'];
+                        $usuario_bd = $reg['usuario'];
+                        $password_bd = $reg['password'];
+                        $nombre_bd = $reg['nombre'];
+                        $correo_bd = $reg['correo'];
+
+                        /* I validated if password are the same with the database  which is encrypted*/
+                        if(password_verify($password, $password_bd))
+                        {
+                            $_SESSION["id_usuario"] = $id_usuario;
+                            $_SESSION["usuario"] = $usuario_bd;
+                            $_SESSION["nombre"] = $nombre_bd;
+                            $_SESSION["correo"] = $correo_bd; 
+
+                            header('location:admin/index.php');
+                        }
+                        else
+                        {
+                            // If the email and password are different against database
+                            header('location:login.php');
+                        }
+                    }
+                    else
+                    {
+                        // ** Email has not found in database **
+                        echo "<h1 class='text-center text-danger bg-danger'>Email has not found in database</h1>";
+                    }
+                }
+            }
+            catch(Exception $e)
+            {
+                die("Error: {$e->getMessage()}");
+            }
+        }
+	}
 }
 
 ?>

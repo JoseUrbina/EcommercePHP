@@ -2,6 +2,8 @@
 <?php require_once "includes/conexion.php";?>
 <!-- Adding file header.php -->
 <?php require_once "includes/header.php";?>
+<!-- Adding file admin/Modelos/Usuarios.php -->
+<?php require_once "admin/Modelos/Usuarios.php";?>
 
 <?
     if(isset($_POST['login']))
@@ -9,72 +11,15 @@
         $correo = htmlentities(addslashes($_POST['correo']));
         $password = htmlentities(addslashes($_POST['password']));
 
-        // Validate empty fields
-        if(empty($correo) && empty($password))
+        try
         {
-            echo "<h1 class='text-center text-danger bg-danger'>Empty fields in the form</h1>";
+            // New instance usuarios.
+            $usuarios = new Usuarios();
+            $usuarios->Login($correo, $password);
         }
-        else
+        catch(Exception $e)
         {
-            // Validating if the email exist in the database
-            
-            try
-            {
-                $conectar = Conectar::conexion();
-
-                $sql = "SELECT * FROM usuarios WHERE correo = :correo";
-                $resultado = $conectar->prepare($sql);
-                $resultado->bindValue(':correo', $correo);
-
-                // Validate if it exist an query error
-                if(!$resultado->execute())
-                {
-                    echo "<h1 class='text-center text-danger bg-danger'>Failded query</h1>";
-                }
-                else
-                {
-                    // Validating if email exists in database
-                    if($resultado->rowCount() > 0)
-                    {
-                        $reg = $resultado->fetch(PDO::FETCH_ASSOC);
-
-                        $id_usuario = $reg['id_usuario'];
-                        $usuario_bd = $reg['usuario'];
-                        $password_bd = $reg['password'];
-                        $nombre_bd = $reg['nombre'];
-                        $correo_bd = $reg['correo'];
-
-                        /* I validated if password are the same with the database */
-
-                        if($password == $password_bd)
-                        {
-                            $_SESSION["id_usuario"] = $id_usuario;
-                            $_SESSION["usuario"] = $usuario_bd;
-                            $_SESSION["nombre"] = $nombre_bd;
-                            $_SESSION["correo"] = $correo_bd; 
-
-                            header('location:admin/index.php');
-                        }
-                        else
-                        {
-                            // If the email and passwrod are different against database
-                            header('location:login.php');
-                        }
-                    }
-                    else
-                    {
-                        // ** Email has not found in database **
-                        echo "<h1 class='text-center text-danger bg-danger'>Email has not found in database</h1>";
-                    }
-                }
-            }
-            catch(Exception $e)
-            {
-                die("Error: {$e->getMessage()}");
-            }
-            finally{
-                $conectar = null;
-            }
+            die("Error: {$e->getMessage()}");
         }
     }
 ?>
