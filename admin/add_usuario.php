@@ -71,7 +71,7 @@
 
 	<div class="form-group">
 		<label class="control-label">Usuario:</label>
-		<input type="text" name="usuario" class="form-control" value="Admin">
+		<input type="text" name="usuario" class="form-control">
 	</div>
 
 	<div class="form-group">
