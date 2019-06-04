@@ -47,6 +47,65 @@
 				die("Error: {$e->getMessage()}");
 			}
 		}
+
+		// Function that deletes a record from reportes table
+		public function eliminar_reporte($id_reporte)
+		{
+			try
+			{
+				$sql_search = "SELECT id_reporte FROM reportes
+							   WHERE id_reporte = :id_reporte";
+
+				$result_search = $this->db->prepare($sql_search);
+				$result_search->bindValue(":id_reporte", 
+										   $id_reporte);
+
+				// if search query fails, throw error
+				if(!$result_search->execute())
+				{
+					header("Location:index.php?reportes&m=1");
+					exit();
+				}
+				else
+				{
+					// if record exists in DB
+					if($result_search->rowCount() > 0)
+					{
+						$sql= "DELETE FROM reportes 
+							   WHERE id_reporte = :id_reporte";
+
+						$result = $this->db->prepare($sql);
+						$result->bindValue(":id_reporte",
+											$id_reporte);
+
+						// if query fails, throw error
+						if(!$result->execute())
+						{
+							header("Location:index.php?reportes" 
+									. "&m=1");
+						}
+						else
+						{
+							// if record has been deleted
+							if($result->rowCount() > 0)
+							{
+								header("Location:index.php?reportes"
+									   . "&m=2");
+							}
+						}
+					}
+					else
+					{
+						// if record has not been found, throw error
+						header("Location:index.php?reportes&m=3");
+					}
+				}
+			}
+			catch(Exception $e)
+			{
+				die("Error: {$e->getMessage()}");
+			}
+		}
 	}
 
 ?>
