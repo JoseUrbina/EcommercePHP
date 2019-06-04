@@ -43,6 +43,8 @@
                                     $producto_titulo = $row["producto_titulo"];
                                     $producto_precio = $row["producto_precio"];
                                     $producto_imagen = $row["producto_imagen"]; 
+
+                                    $descrip_corta = $row["descripcion_corta"];
                     ?>
                     
                     <div class="col-sm-4 col-lg-4 col-md-4">
@@ -60,7 +62,10 @@
                                         <?php echo $producto_titulo;?>
                                     </a>
                                 </h4>
-                                <p>See more snippets like this online store item at <a target="_blank" href="#">Bootsnipp - http://bootsnipp.com</a>.</p>
+                                <p>
+                                    <?php echo substr($descrip_corta,
+                                                      0, 50 );?>
+                                </p>
                                 <!-- agregar : contain the idProduct -->
                                 <a class="btn btn-primary" target="_blank" 
                                 href="carro.php?agregar=<?php echo $id_producto;?>">Agregar al Carro</a>
