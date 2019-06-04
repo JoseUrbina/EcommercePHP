@@ -28,7 +28,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Ecommerce Backend</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -67,6 +67,9 @@
                 </button>
                 <!-- it was changed by me => Video 33 -->
                 <a class="navbar-brand" href="index.php">Ecommerce Admin</a>
+
+                <!-- Redirect to homepage -->
+                <a class="navbar-brand" href="../index.php">Home</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
