@@ -7,12 +7,12 @@
 <div class="container">
 
     <!-- Jumbotron Header -->
-    <header class="jumbotron hero-spacer">
+    <!-- <header class="jumbotron hero-spacer">
         <h1>A Warm Welcome!</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
         <p><a class="btn btn-primary btn-large">Call to action!</a>
         </p>
-    </header>
+    </header> -->
 
     <hr>
 
@@ -53,18 +53,23 @@
                     $producto_titulo = $reg["producto_titulo"];
                     $producto_imagen = $reg["producto_imagen"];
 
-                    // --> ** Pendient its use in the interface
-                    $descripcion_corta = $reg["descripcion_corta"];
+                    $descrip_corta = $reg["descripcion_corta"];
 ?>
 
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="<?php echo $producto_imagen;?>" alt="">
+                <img src='<?php echo "uploads/{$producto_imagen}";?>'
+                     alt="">
                 <div class="caption">
                     <h3><?php echo $producto_titulo;?></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
-                        <a href="item.php?id_producto=<?php echo $id_producto;?>" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                        <?php echo substr($descrip_corta, 0, 50);?>
+                    </p>
+                    <p>
+                        <a href="carro.php?agregar=<?php 
+                        echo $id_producto;?>" 
+                        class="btn btn-primary">Agregar al carro</a> 
+                        <!-- <a href="#" class="btn btn-default">More Info</a>-->
                     </p>
                 </div>
             </div>
