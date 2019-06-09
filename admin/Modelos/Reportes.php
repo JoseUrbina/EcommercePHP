@@ -106,6 +106,32 @@
 				die("Error: {$e->getMessage()}");
 			}
 		}
+
+		// function that gets the number of reporte records
+		public function get_numero_reportes()
+		{
+			try
+			{
+				$sql = "SELECT * FROM reportes";
+
+				$resultado = $this->db->prepare($sql);
+
+				// failed query
+				if(!$resultado->execute())
+				{
+					echo "<h1 class='text-danger'>Falla en la consulta</h1>";
+				}
+				else
+				{
+					// Number of records
+					return $resultado->rowCount();
+				}
+			}
+			catch(Exception $e)
+			{
+				die("Error: {$e->getMessage()}");
+			}
+		}
 	}
 
 ?>
