@@ -345,4 +345,30 @@
 				die("Error: {$e->getMessage()}");
 			}
 		}
+
+		// function which gets the numbers of producto record
+		public function get_numero_productos()
+		{
+			try
+			{
+				$sql = "SELECT * FROM productos";
+
+				$resultado = $this->db->prepare($sql);
+
+				// failed query
+				if(!$resultado->execute())
+				{
+					echo "<h1 class='text-danger'>Falla en la consulta</h1>";
+				}
+				else
+				{
+					// return number of records
+					return $resultado->rowCount();
+				}
+			}
+			catch(Exception $e)
+			{
+				die("Error: {$e->getMessage()}");
+			}
+		}
 	}
