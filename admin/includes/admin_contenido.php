@@ -9,6 +9,12 @@
         $categoria = new Categorias();
         $reporte = new Reportes();
         $usuario = new Usuarios();
+
+        /*$num_pedidos = $pedido->get_numero_pedidos();
+        $num_reportes = $reporte->get_numero_reportes();
+        $num_productos = $producto->get_numero_productos();
+        $num_categorias = $categoria->get_numero_categorias();
+        $num_usuarios = $usuario->get_numero_usuarios();*/
     }
     catch(Exception $e)
     {
@@ -100,6 +106,67 @@
         </div>
     </div>
 </div>
+
+<!-- GRAFICO GOOGLE CHART-->
+
+<div class="row">
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      /*
+            [
+                [titleX, titleY],
+                [titleColumn, value],....
+            ]
+      */
+      function drawStuff() {
+        var data = new google.visualization.arrayToDataTable([
+          ['Data', 'Registros'],
+          <?php
+
+            /*This variable stores the title for each bar*/
+            $element_text = ['Todos los pedidos',
+                             'Todos los reportes',
+                             'Todos los productos',
+                             'Todas las categorias',
+                             'Todos los usuarios'];
+
+            /*This variable stores all total values to show*/
+            $element_count = [$pedido->get_numero_pedidos(),
+                              $reporte->get_numero_reportes(),
+                              $producto->get_numero_productos(),
+                              $categoria->get_numero_categorias(),
+                              $usuario->get_numero_usuarios()];
+
+            /*Getting titles and values, create array and to show
+              them*/
+            for($i=0;$i<5;$i++)
+            {
+                echo "['$element_text[$i]'" . "," 
+                     . "$element_count[$i]],";
+            }
+          ?>
+        ]);
+
+        /*Variables here, they wre not necesaries*/
+        var options = {
+          chart: {
+            title: '',
+            subtitle: '',
+          }
+        };
+
+        /*div container which will use to show datas*/
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+        // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      };
+    </script>
+  
+  <div id="columnchart_material" style="width: auto; height: 500px;"></div>
+</div>
+
 
 <!-- /.row -->
 
