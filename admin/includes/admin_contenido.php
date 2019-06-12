@@ -10,11 +10,29 @@
         $reporte = new Reportes();
         $usuario = new Usuarios();
 
-        /*$num_pedidos = $pedido->get_numero_pedidos();
+        /*This variable stores the title for each bar*/
+        $element_text = ['Todos los pedidos',
+                         'Todos los reportes',
+                         'Todos los productos',
+                         'Todas las categorias',
+                         'Todos los usuarios'];
+
+        /* 
+            Getting amount for each model with a respective function
+            for using them into the code and google charts
+        */
+        $num_pedidos = $pedido->get_numero_pedidos();
         $num_reportes = $reporte->get_numero_reportes();
         $num_productos = $producto->get_numero_productos();
         $num_categorias = $categoria->get_numero_categorias();
-        $num_usuarios = $usuario->get_numero_usuarios();*/
+        $num_usuarios = $usuario->get_numero_usuarios();
+
+        /*This variable stores all total values to show*/
+        $element_count = [$num_pedidos,
+                          $num_reportes,
+                          $num_productos,
+                          $num_categorias,
+                          $num_usuarios];
     }
     catch(Exception $e)
     {
@@ -25,7 +43,7 @@
 <!-- /.row -->
 <div class="row">
 
-            <div class="col-lg-4 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
@@ -35,7 +53,8 @@
                     <div class="col-xs-9 text-right">
                         <div class="huge">
                         <?php
-                            echo $pedido->get_numero_pedidos();
+                            echo $num_pedidos;
+                            //echo $pedido->get_numero_pedidos();
                         ?>
                         </div>
                         <div>Pedidos!</div>
@@ -62,7 +81,8 @@
                     <div class="col-xs-9 text-right">
                         <div class="huge">
                         <?php
-                            echo $producto->get_numero_productos();
+                            echo $num_productos;
+                            //echo $producto->get_numero_productos();
                         ?>
                         </div>
                         <div>Productos!</div>
@@ -89,7 +109,8 @@
                     <div class="col-xs-9 text-right">
                         <div class="huge">
                         <?php
-                            echo $categoria->get_numero_categorias();
+                            echo $num_categorias;
+                        //echo $categoria->get_numero_categorias();
                         ?>
                         </div>
                         <div>Categorias!</div>
@@ -126,18 +147,18 @@
           <?php
 
             /*This variable stores the title for each bar*/
-            $element_text = ['Todos los pedidos',
+            /*$element_text = ['Todos los pedidos',
                              'Todos los reportes',
                              'Todos los productos',
                              'Todas las categorias',
-                             'Todos los usuarios'];
+                             'Todos los usuarios'];*/
 
             /*This variable stores all total values to show*/
-            $element_count = [$pedido->get_numero_pedidos(),
+            /*$element_count = [$pedido->get_numero_pedidos(),
                               $reporte->get_numero_reportes(),
                               $producto->get_numero_productos(),
                               $categoria->get_numero_categorias(),
-                              $usuario->get_numero_usuarios()];
+                              $usuario->get_numero_usuarios()];*/
 
             /*Getting titles and values, create array and to show
               them*/
@@ -146,6 +167,11 @@
                 echo "['$element_text[$i]'" . "," 
                      . "$element_count[$i]],";
             }
+
+            /*
+                All this code here is the original verison code from video61 (Google charts), but i move out to the beginnig for more security with try...catch,
+                and we can use different variable in all the code page
+            */
           ?>
         ]);
 
