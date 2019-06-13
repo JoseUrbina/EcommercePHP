@@ -34,7 +34,7 @@
 
                             if(!$resultados->execute())
                             {
-                                echo "<h1 style='color:red'>Failed conection</h1>";
+                                echo "<h1 style='color:red'>Falla en la conexión</h1>";
                             }
                             else
                             {

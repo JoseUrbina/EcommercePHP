@@ -38,7 +38,7 @@
                 break;
             case 2:
 ?>
-                <h2 class="text-danger bg-danger">No existe el id y/o el usuario que quire editar.</h2>
+                <h2 class="text-danger bg-danger">No existe el id y/o el usuario que quiere editar.</h2>
 <?php
                 break;
             case 3:

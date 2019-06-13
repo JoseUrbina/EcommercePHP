@@ -84,8 +84,9 @@
                     {
                     	$conectar = Conectar::conexion();
 
-						$sql = "INSERT INTO pedidos(pedido_amount, pedido_transaction,
-												pedido_status, pedido_currency) 
+						$sql = "INSERT INTO pedidos(pedido_amount,
+                    pedido_transaction, pedido_status,
+                    pedido_currency) 
 								VALUES(:amount, :transaction, :status, :currency);";
 
 						$result_pedido = $conectar->prepare($sql);
@@ -103,7 +104,7 @@
 						}
 						else
 						{
-							echo "<h1 class='text-danger text-center'>Failed query<h1>";
+							echo "<h1 class='text-danger text-center'>Falla en la consulta<h1>";
 						}
                     }
 
@@ -139,7 +140,7 @@
 
                        	if(!$result_reporte->execute())
                        	{
-                       		echo "<h1 class='text-danger'>Failed query - Reporte</h1>";
+                       		echo "<h1 class='text-danger'>Falla en la consulta - Reporte</h1>";
                        	}
 
                         /***** INSERTAR REPORTE FIN *****/
@@ -172,7 +173,7 @@
 
                        if(!$result_quantity->execute())
                        {
-                       		echo "<h1 class='text-danger'>Failed query - Cantidad Productos</h1>";
+                       		echo "<h1 class='text-danger'>Falla en la consulta - Cantidad Productos</h1>";
                        }
 
                        /**** FIN ACTUALIZAR CANTIDAD EN PRODUCTOS    ****/
@@ -182,7 +183,7 @@
                     } // Cierre IF Conditional
                     else
                     {
-                        echo "<h1 style='color:red;'>Failed query</h1>";
+                        echo "<h1 style='color:red;'>Falla en la consulta</h1>";
                     }
                 } // Cierre de la validacion substr
             } // Cierre validacion del valor > 0

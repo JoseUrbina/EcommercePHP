@@ -151,7 +151,7 @@
                             } // Cierre IF Conditional
                             else
                             {
-                              echo "<h1 style='color:red;'>Failed query</h1>";
+                              echo "<h1 style='color:red;'>Falla en la consulta</h1>";
                             }
                         } // Cierre de la validacion substr
                       } // Cierre validacion del valor > 0

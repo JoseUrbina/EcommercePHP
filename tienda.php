@@ -26,7 +26,7 @@
 
         if(!$resultados->execute())
         {
-            echo "<h1 style='color:red;'>Failed query</h1>";
+            echo "<h1 style='color:red;'>Falla en la consulta</h1>";
         }
         else
         {
@@ -43,12 +43,16 @@
 
         <div class="col-md-3 col-sm-6 hero-feature">
             <div class="thumbnail">
-                <img src="<?php echo $producto_imagen;?>" alt="">
+                <img src="<?php echo "uploads/" . $producto_imagen;?>"     alt="">
                 <div class="caption">
                     <h3><?php echo $producto_titulo;?></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     <p>
-                        <a href="item.php?id_producto=<?php echo $id_producto;?>" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                    <?php 
+                        echo substr($descripcion_corta, 0, 60);
+                    ?>
+                    </p>
+                    <p>
+                        <a href="item.php?id_producto=<?php echo $id_producto;?>" class="btn btn-primary">Detalle</a>
                     </p>
                 </div>
             </div>
@@ -60,7 +64,7 @@
             } // Cierra if conditional
             else
             {
-                echo "<h1 style='color:red;'>Doesn't exist any product</h1>";
+                echo "<h1 style='color:red;'>No existe ningún producto</h1>";
             }
         }// Cierre else first if conditional
     }

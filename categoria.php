@@ -40,7 +40,7 @@
 
         if(!$resultados->execute())
         {
-            echo "<h1 style='color:red'>Failed query</h1>";
+            echo "<h1 style='color:red'>Falla en la consulta</h1>";
         }
         else
         {
@@ -80,7 +80,7 @@
             }// Close validation
             else
             {
-                echo "<h1 style='color:red'>Category does not have products</h1>";
+                echo "<h1 style='color:red'>La categoria no tiene productos</h1>";
             }
         } // Close else
     }

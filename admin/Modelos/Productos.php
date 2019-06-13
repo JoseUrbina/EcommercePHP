@@ -30,7 +30,7 @@
 
 				if(!$result->execute())
 				{
-				   echo "<h1 class='text-danger bg-danger'>Failed query!</h1>";
+				   echo "<h1 class='text-danger bg-danger'>Falla en la consulta!</h1>";
 				}
 				else
 				{
@@ -141,7 +141,7 @@
 
 				if(!$result->execute())
 				{
-					echo "<h1 style='color:red;'>Failed query!</h1>";
+					echo "<h1 style='color:red;'>Falla en la consulta!</h1>";
 				}
 				else
 				{
@@ -185,7 +185,7 @@
 					if($result_search->rowCount() > 0)
 					{
 						$sql_delete = "DELETE FROM productos 
-									   WHERE id_producto = :id_producto";
+								WHERE id_producto = :id_producto";
 
 						$result_delete = $this->db->prepare($sql_delete);
 						$result_delete->bindValue(":id_producto", $id_producto);
@@ -229,8 +229,9 @@
 			   empty($_POST["producto_descripcion"]) or 
 			   empty($_POST["descripcion_corta"]))
 			{
-				header("Location:index.php?edit_producto&editar=" . $_GET["editar"] . 
-					   "&m=1"); exit();
+				header("Location:index.php?edit_producto&editar=" . 
+					    $_GET["editar"] . "&m=1"); 
+				exit();
 			}
 
 			/*
@@ -326,7 +327,7 @@
 
 				if(!$result->execute())
 				{
-					echo "<h1 style='color:red;'>Failed query</h1>";
+					echo "<h1 style='color:red;'>Falla en la consulta!</h1>";
 				}
 				else
 				{

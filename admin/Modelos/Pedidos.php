@@ -29,7 +29,7 @@
 
 				if(!$result->execute())
 				{
-					echo "<h1 class='text-danger bg-danger'>Failed query!</h1>";
+					echo "<h1 class='text-danger bg-danger'>Falla en la consulta!</h1>";
 				}
 				else
 				{
@@ -53,7 +53,8 @@
 			try
 			{	
 				// First: Verificy if it exist this pedido by id_pedido
-				$sql = "SELECT * FROM pedidos WHERE id_pedido = :id_pedido";
+				$sql = "SELECT * FROM pedidos 
+						WHERE id_pedido = :id_pedido";
 
 				$result = $this->db->prepare($sql);
 				$result->bindValue(":id_pedido", $id_pedido);
@@ -68,10 +69,12 @@
 					// if it exist this pedido, do the next
 					if($result->rowCount() > 0)
 					{
-						$sql_delete = "DELETE FROM pedidos WHERE id_pedido = :id_pedido";
+						$sql_delete = "DELETE FROM pedidos 
+									WHERE id_pedido = :id_pedido";
 
 						$result_delete = $this->db->prepare($sql_delete);
-						$result_delete->bindValue(":id_pedido", $id_pedido);
+						$result_delete->bindValue(":id_pedido", 
+												   $id_pedido);
 
 						// in case: failed query
 						if(!$result_delete->execute())

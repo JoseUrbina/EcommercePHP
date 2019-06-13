@@ -29,7 +29,7 @@ class Categorias extends Conectar
 
 			if(!$resultado->execute())
 			{
-				echo "<h1 class='text-danger bd-danger'>Failed query!</h1>";
+				echo "<h1 class='text-danger bg-danger'>Falla en la consulta!</h1>";
 			}
 			else
 			{
@@ -52,7 +52,8 @@ class Categorias extends Conectar
 	{
 		try
 		{			
-			$sql = "SELECT * FROM categorias WHERE id_categoria = :id_categoria";
+			$sql = "SELECT * FROM categorias 
+					WHERE id_categoria = :id_categoria";
 
 			$resultado = $this->db->prepare($sql);
 

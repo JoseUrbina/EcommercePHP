@@ -31,7 +31,7 @@ class Usuarios extends Conectar
 
 			if(!$resultado->execute())
 			{
-				echo "<h1 class='text-danger bg-danger'>Failed query</h1>";
+				echo "<h1 class='text-danger bg-danger'>Falla en la consulta</h1>";
 			}
 			else
 			{
@@ -175,7 +175,8 @@ class Usuarios extends Conectar
 	{
 		try
 		{
-			$sql = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario";
+			$sql = "SELECT * FROM usuarios 
+					WHERE id_usuario = :id_usuario";
 
 			$resultado = $this->db->prepare($sql);
 			$resultado->bindValue(":id_usuario", $id_usuario);
@@ -276,22 +277,21 @@ class Usuarios extends Conectar
 						// failed query : return edit_usuario page
 						if(!$resultado->execute())
 						{
-							header("Location:index.php?edit_usuario" . 
-							   	   "&id_usuario={$id_usuario}&m=2");
+							header("Location:index.php?edit_usuario" . "&id_usuario={$id_usuario}&m=2");
 						}
 						else
 						{
 							// if record has been edited successfully
 							if($resultado->rowCount() > 0)
 							{
-								header("Location:index.php?edit_usuario" . 
-								   	   "&id_usuario={$id_usuario}&m=3");
+							header("Location:index.php?edit_usuario"
+								. "&id_usuario={$id_usuario}&m=3");
 							}
 							else
 							{
 								// if record has not been edited
-								header("Location:index.php?edit_usuario" . 
-								  	   "&id_usuario={$id_usuario}&m=4");
+							header("Location:index.php?edit_usuario"
+								. "&id_usuario={$id_usuario}&m=4");
 							}
 						}
 					}
@@ -379,7 +379,7 @@ class Usuarios extends Conectar
         // Validate empty fields
         if(empty($correo) && empty($password))
         {
-            echo "<h1 class='text-center text-danger bg-danger'>Empty fields in the form</h1>";
+            echo "<h1 class='text-center text-danger bg-danger'>Los campos del formulario estan vacios.</h1>";
         
         /*
 			El formato del password debe tener al menos una letra mayúscula, una letra minúscula, un caracter extraño y un número, por ejemplo en este proyecto esta $Qw/*12345678$ no importa el orden lo importante es que se cumple el formato.
@@ -409,7 +409,7 @@ class Usuarios extends Conectar
                 // Validate if it exist an query error
                 if(!$resultado->execute())
                 {
-                    echo "<h1 class='text-center text-danger bg-danger'>Failded query</h1>";
+                    echo "<h1 class='text-center text-danger bg-danger'>Falla en la consulta</h1>";
                 }
                 else
                 {
@@ -443,7 +443,7 @@ class Usuarios extends Conectar
                     else
                     {
                         // ** Email has not found in database **
-                        echo "<h1 class='text-center text-danger bg-danger'>Email has not found in database</h1>";
+                        echo "<h1 class='text-center text-danger bg-danger'>El correo no ha sido encontrado en la base de datos</h1>";
                     }
                 }
             }

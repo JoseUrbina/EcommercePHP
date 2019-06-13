@@ -19,7 +19,8 @@
 
 			if(!$resultado->execute())
 			{
-				echo "<h2 style='color:red;'>Failed query</h2>";
+				echo "<h2 style='color:red;'>" . 
+					 "Falla en la consulta</h2>";
 			}
 			else
 			{
@@ -35,13 +36,13 @@
 						else
 						{
 							// ** if amount of db and amount of session are equals **
-							header("Location:checkout.php?cantidad={$reg['producto_cantidad']}&producto_titulo={$reg['producto_titulo']}");
+						    header("Location:checkout.php?cantidad={$reg['producto_cantidad']}&producto_titulo={$reg['producto_titulo']}");
 						}
 					}
 				}
 				else
 				{
-					echo "<h2 style='color:red;'>it has not found any record</h2>";
+					echo "<h2 style='color:red;'>Ningún registro ha sido encontrado</h2>";
 				}
 			}
 		}

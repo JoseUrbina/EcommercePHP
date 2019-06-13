@@ -36,7 +36,9 @@
     {
       case 1:
 ?>
-          <h1 class="text-danger bg-danger">Failed Query!</h1>
+          <h1 class="text-danger bg-danger">
+            Falla en la consulta!
+          </h1>
 <?php
           break;
       case 2:

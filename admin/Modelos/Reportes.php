@@ -30,7 +30,7 @@
 				if(!$result->execute())
 				{
 					echo "<h1 class='text-danger bg-danger'>" . 
-						 "Failed query!</h1>";
+						 "Falla en la consulta!</h1>";
 				}
 				else
 				{
