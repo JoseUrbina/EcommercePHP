@@ -48,11 +48,13 @@
                     <h3><?php echo $producto_titulo;?></h3>
                     <p>
                     <?php 
-                        echo substr($descripcion_corta, 0, 60);
+                        echo substr($descripcion_corta, 0, 50);
                     ?>
                     </p>
                     <p>
-                        <a href="item.php?id_producto=<?php echo $id_producto;?>" class="btn btn-primary">Detalle</a>
+                        <a href="carro.php?agregar=<?php 
+                        echo $id_producto;?>" 
+                        class="btn btn-primary">Agregar al carro</a>
                     </p>
                 </div>
             </div>
