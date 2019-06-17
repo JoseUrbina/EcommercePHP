@@ -27,7 +27,7 @@
                     $url = $_SERVER["REQUEST_URI"];
 
                     /* Condition: with and without index.php from admin page index */
-                   if($url == "/EccomercePHP/admin/" || $url == "/EccomercePHP/admin/index.php")
+                   if($url == "/EcommercePHP/admin/" || $url == "/EcommercePHP/admin/index.php")
                     {
                         require_once "includes/admin_contenido.php";
                     }
