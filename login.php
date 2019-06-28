@@ -24,11 +24,27 @@
     }
 ?>
 
+<?php
+    if(isset($_GET["m"]))
+    {
+        switch($_GET["m"])
+        {
+            case 1:
+?>
+    <h2 class="text-success text-center">
+        Se ha reseteado la contraseña satisfactoriamente, ahora puede loguearse con la nueva contraseña
+    </h2>
+<?php
+                break;
+        }
+    }
+?>
+
     <!-- Page Content -->
     <div class="container">
 
       <header>
-            <h1 class="text-center">Login</h1>
+        <h1 class="text-center">Login</h1>
         <div class="col-sm-4 col-sm-offset-5">         
             <form class="" action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
                 <div class="form-group"><label for="">

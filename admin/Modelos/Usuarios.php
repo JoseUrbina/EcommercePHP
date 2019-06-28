@@ -266,13 +266,15 @@ class Usuarios extends Conectar
 						/** Editing User **/
 
 						$sql = "UPDATE usuarios 
-								SET nombre = :nombre, apellido=:apellido 
+								SET nombre = :nombre, 
+								    apellido = :apellido 
 								WHERE id_usuario = :id_usuario";
 
 						$resultado = $this->db->prepare($sql);
 						$resultado->bindValue(":nombre", $nombre);
-						$resultado->bindValue(":apellido", $apellido);
-						$resultado->bindValue(":id_usuario", $id_usuario);
+						$resultado->bindValue(":apellido",$apellido);
+						$resultado->bindValue(":id_usuario", 
+											  $id_usuario);
 
 						// failed query : return edit_usuario page
 						if(!$resultado->execute())
@@ -393,7 +395,7 @@ class Usuarios extends Conectar
 		else if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){12,15}$/",$password))
 		{
 			echo "<h2 class='text-center text-danger bg-danger'>" 
-				 . "El password no existe en la base de datos</h2>";
+				. "La contraseña no existe en la base de datos</h2>";
 		}
         else
         {
@@ -477,6 +479,108 @@ class Usuarios extends Conectar
 		catch(Exception $e)
 		{
 			die("Error: {$e->getMessage()}");
+		}
+	}
+
+	/*
+		We validate if email exists in usuarios table from BD
+		to reset the password
+	*/
+	public function get_correo_en_bd($correo, $token)
+	{
+		try
+		{
+			$sql = "SELECT correo FROM usuarios 
+					WHERE correo = :correo";
+
+			$resultado = $this->db->prepare($sql);
+			$resultado->bindValue(":correo", $correo);
+
+			if(!$resultado->execute())
+			{
+				echo "<h2 class='text-center text-danger'>Falló en la consulta</h2>";
+			}
+			else
+			{
+				// Exist a record with that email
+				if($resultado->rowCount() > 0)
+				{
+					// Update token field
+					$sql_upd = "UPDATE usuarios 
+								SET token = :token
+								WHERE correo = :correo";
+
+					$resultado_upd = $this->db->prepare($sql_upd);
+
+					$resultado_upd->bindValue(":token", $token);
+					$resultado_upd->bindValue(":correo", $correo);
+
+					if(!$resultado_upd->execute())
+					{
+						echo "<h2 class='text-center text-danger'>Falló en la consulta</h2>";
+					}
+					else
+					{
+						/*
+							COMENZAR - ENVIAMOS EL CORREO
+
+							** IMPORTANTE: CUANDO VAYAS A SUBIR EL PROYECTO AL HOSTING PONER EL NOMBRE DEL DOMINIO DEL HOSTING EN EL href DEL ANCLA href='http://tudominio.com/'' QUE SEN ENCUENTRA EN EL $cuerpo **
+						 */
+						
+						$to = $correo;
+						$asunto = "Proyecto Ecommerce - Resetear password";
+
+						$cuerpo = " 
+							<html>
+							<head>
+								<title></title>
+							</head>
+							<body>
+								<h1 style='color:black;'>PROYECTO ECOMMERCE</h1>
+								<p>Por favor dar click en el link para resetear la contraseña
+								
+								<a href='http://localhost/EcommercePHP/resetear.php?correo=" . $correo . "&token=" . $token . "'>
+								
+								http://localhost/EcommercePHP/resetear.php?correo=" . $correo . "&token=" . $token . "</a>
+
+
+								</p>
+							</body>
+							</html>
+						";
+
+						// COnfiguration to send in HTML Format
+						$cabeceras = "MIME-Version:1.0\r\n";
+						$cabeceras .= "Content-type:text/html;charset=iso-8859-1\r\n";
+
+						// Validando el envío del correo
+						if(mail($to, $asunto, $cuerpo, $cabeceras))
+						{	
+							$correo_enviado = true;
+
+							echo "<h2 class='text-center text-success'>Se ha enviado un correo, por favor dar click en el link para resetear la contraseña</h2>";
+
+							exit();
+						}
+						else
+						{
+							echo "<h2 class='text-center text-danger'>No se envió el correo</h2>";
+						}
+
+						/* FIN: ENVIAMOS EL CORREO */
+					}
+				}
+				else
+				{
+					// Email does not exist in the Database
+					
+					echo "<h2 class='text-center text-danger'>El correo ingresado no existe en la base de datos</h2>";
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			throw $e;
 		}
 	}
 }

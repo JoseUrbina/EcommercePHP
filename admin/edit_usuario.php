@@ -86,13 +86,14 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label">Password:</label>
+		<label class="control-label">Contraseña:</label>
 		<input type="password" name="password" class="form-control" disabled
 				value="<?php echo $datos[0]["password"];?>">
 	</div>
 
 	<div class="form-group">
-		<input type="submit" name="editar_usuario" value="Editar usuario" 
+		<input type="submit" name="editar_usuario" 
+			   value="Editar usuario" 
 			   class="btn btn-primary">
 	</div>
 </form>
