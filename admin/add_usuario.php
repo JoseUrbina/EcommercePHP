@@ -23,12 +23,14 @@
 				break;
 			case 2:
 ?>
-				<h2 class="text-danger bg-danger">El formato del password debe tener al menos una letra mayúscula, una letra minúscula, un caracter extraño y un número y que sean minimo 12 caracteres y máximo 15 caracteres</h2>
+				<h2 class="text-danger bg-danger">El formato de la contraseña debe tener al menos una letra mayúscula, una letra minúscula, un caracter extraño y un número y que sean minimo 12 caracteres y máximo 15 caracteres</h2>
 <?php
 				break;
 			case 3:
 ?>
-				<h2 class="text-danger bg-danger">Fallo en la consulta</h2>
+				<h2 class="text-danger bg-danger">
+					Fallo en la consulta
+				</h2>
 <?php
 				break;
 			case 4:
@@ -80,12 +82,13 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label">Password:</label>
+		<label class="control-label">Contraseña:</label>
 		<input type="password" name="password" class="form-control">
 	</div>
 
 	<div class="form-group">
-		<input type="submit" name="crear_usuario" value="Añadir usuario" 
+		<input type="submit" name="crear_usuario" 
+			   value="Añadir usuario" 
 			   class="btn btn-primary">
 	</div>
 </form>
