@@ -23,14 +23,14 @@
 
             // Para el envío en formato html
             $cabecera = "MIME-Version: 1.0\r\n";
-            $cabecera .= "Content-type: text-html;charset=iso-8859-1\r\n";
+            $cabecera .= "Content-type: text/html;charset=iso-8859-1\r\n";
             $cabecera .= " From: " . $_POST['email'];
 
             // send email
             
             if(mail($to, $asunto, $cuerpo, $cabecera))
             {
-                echo "<h2 class='text-danger text-center'>Se ha enviado el comentario satifactoriamente</h2>";
+                echo "<h2 class='text-success text-center'>Se ha enviado el comentario satifactoriamente</h2>";
             }
             else
             {
