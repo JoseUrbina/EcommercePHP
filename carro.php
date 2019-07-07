@@ -26,9 +26,12 @@
 			{
 				if($resultado->rowCount() > 0)
 				{
-					while($reg = $resultado->fetch(PDO::FETCH_ASSOC)){
-						// ** if amount is different to amount of session variable : add**
-						if($reg['producto_cantidad'] != $_SESSION["producto_" . $_GET['agregar']]){
+					while($reg = $resultado->fetch(PDO::FETCH_ASSOC))
+					{
+						// ** if amount is different to amount 
+						// of session variable : add**
+						if($reg['producto_cantidad'] != $_SESSION["producto_" . $_GET['agregar']] && 
+							$reg["producto_cantidad"] != 0){
 						// We add a product : quantity is the amount of times that add the product
 							$_SESSION["producto_" . $_GET['agregar']] += 1;
 							header("Location: checkout.php");

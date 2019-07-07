@@ -59,18 +59,31 @@
                         <a href="tienda.php">Tienda</a>
                     </li>
                     <li>
-                        <a href="login.php">Login</a>
+                        <?php 
+
+                            // if it exists the SESSION, 
+                            // show us up the ADMIN choice
+                            if(isset($_SESSION["usuario"])){
+                        ?>
+                        
+                            <a href="admin">Admin</a>
+
+                        <?php }else{?>
+
+                            <a href="login.php">Login</a>
+                        
+                        <?php }?>
                     </li>
 
                     <?php
 
                         // if it exists the SESSION, show us up the ADMIN choice
-                        if(isset($_SESSION["usuario"]))
+                        /*if(isset($_SESSION["usuario"]))
                         {
                             echo "<li>
                                     <a href='admin'>Admin</a>
                                   </li>";
-                        }
+                        }*/
 
                     ?>
 

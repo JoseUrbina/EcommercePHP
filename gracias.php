@@ -187,12 +187,18 @@
                     }
                 } // Cierre de la validacion substr
             } // Cierre validacion del valor > 0
+
+            // Verify if session name it's a product
+            if(substr($name, 0 , 9) == "producto_")
+            {
+              unset($_SESSION[$name]);
+            }
         } // Cierre del foreach
 
         /*
         	Una vez que se inserten los pedido y reportes se destruye la session para evitar que se hagan nuevos registros al refrescar la pagina gracias.php con los parametros
         */
-        session_destroy();
+        //session_destroy();
 	}
 	catch(Exception $e)
 	{

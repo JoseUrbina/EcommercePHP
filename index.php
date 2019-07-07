@@ -67,7 +67,7 @@
                                                       0, 50 );?>
                                 </p>
                                 <!-- agregar : contain the idProduct -->
-                                <a class="btn btn-primary" target="_blank" 
+                                <a class="btn btn-primary" 
                                 href="carro.php?agregar=<?php echo $id_producto;?>">Agregar al Carro</a>
                             </div>                            
                         </div>

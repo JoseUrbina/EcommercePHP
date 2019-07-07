@@ -28,13 +28,20 @@
       <h1>Checkout</h1>
 
 <!-- Use URL www.sandbox.paypal.com -->
-<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" 
+      method="post">
     <input type="hidden" name="cmd" value="_cart">
+    
+    <!-- upload : allows us to do shoping cart with paypal -->
+    <input type="hidden" name="upload" value="1">
+
     <!-- Use your Business Account -->
-    <input type="hidden" name="business" value="msn.guti5395@outlook.com">
+    <input type="hidden" name="business" 
+           value="joseantonioug99@gmail.com">
+  
     <!-- CUrrency to use for buying products -->
     <input type="hidden" name="currency_code" value="USD">
- 
+
     <table class="table table-striped">
         <thead>
           <tr>
