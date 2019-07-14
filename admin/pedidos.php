@@ -59,6 +59,7 @@
 </div>
 
 <div class="row">
+  <div class="col-xs-12 table-responsive">
     <table class="table table-hover">
         <thead>
           <tr>
@@ -87,4 +88,5 @@
           <?php }?>
         </tbody>
     </table>
+  </div>
 </div>
